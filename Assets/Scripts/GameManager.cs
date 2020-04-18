@@ -29,18 +29,30 @@ public class GameManager : MonoBehaviour
 	protected string bulletTimeSnapshot = "";
 	[SerializeField]
 	protected GameObject startUI;
+	[SerializeField]
+	protected GameObject winUI;
+	[SerializeField]
+	protected GameObject loseUI;
 
 	private float originalFixedDelta;
 	private Baby baby;
 	private Rigidbody[] babyBodies;
 	private FMOD.Studio.EventInstance bulletTimeInstance;
 	private CinemachineBrain brain;
-	private float gameStartTime;
 
 	public bool DisableInput
 	{
 		private set; get;
 	} = false;
+
+	public float? GameStartTime
+	{
+		private set; get;
+	} = null;
+	public float SlowedTimeDuration
+	{
+		get => slowedTimeDuration;
+	}
 
 	void Awake()
 	{
@@ -87,14 +99,13 @@ public class GameManager : MonoBehaviour
 
 		// Wait for the camera blend to end
 		cutsceneCamera.Priority = 0;
-		yield return null;
-		yield return new WaitUntil(() => !brain.IsBlending);
+		yield return new WaitForSecondsRealtime(brain.m_DefaultBlend.m_Time);
 
 		// Start Game!
 		Debug.Log("Time is nearly stopped, enable Input");
 		DisableInput = false;
-		gameStartTime = Time.unscaledTime;
-		yield return new WaitForSecondsRealtime(slowedTimeDuration);
+		GameStartTime = Time.unscaledTime;
+		yield return new WaitForSecondsRealtime(SlowedTimeDuration);
 
 		// Reset the time scale
 		Debug.Log("Time's up! Let's play");
