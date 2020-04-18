@@ -69,5 +69,3 @@ FMOD/.unsaved
 FMOD/.user
 FMOD/.cache
 FMOD/.restore
-/Assets/StreamingAssets/*.bank.meta
-*.bank

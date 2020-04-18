@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,16 +28,32 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	[FMODUnity.EventRef]
 	protected string bulletTimeSnapshot = "";
+	[SerializeField]
+	protected GameObject startUI;
+	[SerializeField]
+	protected GameObject winUI;
+	[SerializeField]
+	protected GameObject loseUI;
 
 	private float originalFixedDelta;
 	private Baby baby;
 	private Rigidbody[] babyBodies;
 	private FMOD.Studio.EventInstance bulletTimeInstance;
+	private CinemachineBrain brain;
 
 	public bool DisableInput
 	{
 		private set; get;
 	} = false;
+
+	public float? GameStartTime
+	{
+		private set; get;
+	} = null;
+	public float SlowedTimeDuration
+	{
+		get => slowedTimeDuration;
+	}
 
 	void Awake()
 	{
@@ -49,6 +66,7 @@ public class GameManager : MonoBehaviour
 		baby = FindObjectOfType<Baby>();
 		babyBodies = baby.GetComponentsInChildren<Rigidbody>();
 		bulletTimeInstance = FMODUnity.RuntimeManager.CreateInstance(bulletTimeSnapshot);
+		brain = FindObjectOfType<CinemachineBrain>();
 	}
 
 	void Start()
@@ -58,10 +76,17 @@ public class GameManager : MonoBehaviour
 
 	private IEnumerator GameFlow()
 	{
-		// Starting cutscene
+		// Setup level and wait for input
 		Debug.Log("Starting the Scene!");
 		cutsceneCamera.Priority = 100;
 		DisableInput = true;
+		startUI.SetActive(true);
+		Time.timeScale = 0f;
+		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+
+		// Start cutscene
+		Time.timeScale = 1f;
+		startUI.SetActive(false);
 		yield return new WaitForSeconds(timeUntilTimeStop);
 
 		// Time is stopping now
@@ -73,11 +98,15 @@ public class GameManager : MonoBehaviour
 			body.isKinematic = true;
 		yield return timescaleTweener.WaitForCompletion();
 
+		// Wait for the camera blend to end
+		cutsceneCamera.Priority = 0;
+		yield return new WaitForSecondsRealtime(brain.m_DefaultBlend.m_Time);
+
 		// Start Game!
 		Debug.Log("Time is nearly stopped, enable Input");
 		DisableInput = false;
-		cutsceneCamera.Priority = 0;
-		yield return new WaitForSecondsRealtime(slowedTimeDuration);
+		GameStartTime = Time.unscaledTime;
+		yield return new WaitForSecondsRealtime(SlowedTimeDuration);
 
 		// Reset the time scale
 		Debug.Log("Time's up! Let's play");
@@ -88,21 +117,28 @@ public class GameManager : MonoBehaviour
 			body.isKinematic = false;
 		yield return timescaleTweener.WaitForCompletion();
 
+		DisableInput = true;
 		yield return new WaitForSeconds(checkWinConditionAfterDuration);
 
 		if (baby.IsDead)
-			OnLose();
+			yield return StartCoroutine(OnLose());
 		else
-			OnWin();
+			yield return StartCoroutine(OnWin());
 	}
 
-	private void OnWin()
+	private IEnumerator OnWin()
 	{
 		Debug.Log("You win!");
+		winUI.SetActive(true);
+		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 
-	private void OnLose()
+	private IEnumerator OnLose()
 	{
 		Debug.Log("You lose!");
+		loseUI.SetActive(true);
+		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 }
