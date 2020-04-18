@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour
 			body.isKinematic = false;
 		yield return timescaleTweener.WaitForCompletion();
 
+		DisableInput = true;
 		yield return new WaitForSeconds(checkWinConditionAfterDuration);
 
 		if (baby.IsDead)
