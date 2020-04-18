@@ -19,8 +19,10 @@ public class Interactable : MonoBehaviour
 	protected new Collider collider;
 	protected int originalLayer;
 	protected int ignoreRaycastLayer;
+	protected CollisionChecker collisionChecker;
 
 	public State CurrentState => state;
+	public bool IsCollidingWithDanger => collisionChecker.IsCollidingWithDanger;
 
 	void Awake()
 	{
@@ -28,6 +30,19 @@ public class Interactable : MonoBehaviour
 		collider = GetComponent<Collider>();
 		originalLayer = gameObject.layer;
 		ignoreRaycastLayer = LayerMask.NameToLayer("Ignore Raycast");
+		collisionChecker = GetComponentInChildren<CollisionChecker>();
+	}
+
+	private void OnEnable()
+	{
+		collisionChecker.onCollidingWithDangerEnter.AddListener(OnCollidingWithDangerEnter);
+		collisionChecker.onCollidingWithDangerExit.AddListener(OnCollidingWithDangerExit);
+	}
+
+	private void OnDisable()
+	{
+		collisionChecker.onCollidingWithDangerEnter.RemoveListener(OnCollidingWithDangerEnter);
+		collisionChecker.onCollidingWithDangerExit.RemoveListener(OnCollidingWithDangerExit);
 	}
 
 	public void ChangeState(State newState)
@@ -52,6 +67,22 @@ public class Interactable : MonoBehaviour
 				gameObject.layer = ignoreRaycastLayer;
 				collider.enabled = false;
 				break;
+		}
+	}
+
+	public void OnCollidingWithDangerEnter()
+	{
+		if (CurrentState == State.Holding)
+		{
+			// TODO mathew: change color to negative
+		}
+	}
+
+	public void OnCollidingWithDangerExit()
+	{
+		if (CurrentState == State.Holding)
+		{
+			// TODO mathew: change color to positive
 		}
 	}
 }

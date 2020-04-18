@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3587399456400356314}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AimPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8982506195945266597}
   - component: {fileID: 3546893478830274243}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1216671417194049057}
   - component: {fileID: 6719017199675854048}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ShadowProjector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3259600233887652501}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FirstPersonSocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 5075138109624615981}
   - component: {fileID: 2709944392345994371}
   - component: {fileID: 1161212526294143713}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ MonoBehaviour:
   minPickupDistance: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 51
+    m_Bits: 4147
 --- !u!143 &2940610084435571318
 CharacterController:
   m_ObjectHideFlags: 0
@@ -383,7 +383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8778698593250308914}
   - component: {fileID: 7006094338265459138}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CM vcam1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

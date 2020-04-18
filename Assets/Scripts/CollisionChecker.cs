@@ -1,18 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CollisionChecker : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private int dangerCount = 0;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	[HideInInspector]
+	public UnityEvent onCollidingWithDangerEnter;
+	[HideInInspector]
+	public UnityEvent onCollidingWithDangerExit;
+
+	public bool IsCollidingWithDanger => dangerCount > 0;
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag("Danger"))
+		{
+			if (!IsCollidingWithDanger)
+				onCollidingWithDangerEnter?.Invoke();
+
+			dangerCount++;
+		}
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.CompareTag("Danger"))
+		{
+			dangerCount--;
+
+			if (!IsCollidingWithDanger)
+				onCollidingWithDangerExit?.Invoke();
+		}
+	}
 }
