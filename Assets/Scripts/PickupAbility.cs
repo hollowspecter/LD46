@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PickupAbility : MonoBehaviour
 {
+	// Constants
+
 	private const string InteractableTag = "Interactable";
+
+	// Fields
 
 	[Header("References")]
 	[SerializeField]
@@ -22,6 +26,12 @@ public class PickupAbility : MonoBehaviour
 	protected PlayerInputHandler inputHandler;
 
 	protected Interactable currentInteractable = null;
+
+	// Properties
+
+	protected Vector3 HoldingPosition => cameraTransform.position + cameraTransform.forward * minPickupDistance;
+
+	// Methods
 
 	void Start()
 	{
@@ -51,6 +61,24 @@ public class PickupAbility : MonoBehaviour
 			currentInteractable.CurrentState == Interactable.State.Hovering)
 		{
 			CheckForInteractables();
+		}
+
+		if (currentInteractable?.CurrentState == Interactable.State.Holding)
+		{
+			RepositionObject();
+		}
+	}
+
+	private void RepositionObject()
+	{
+		if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out var hit, pickupDistance + 1f, layerMask))
+		{
+			currentInteractable.transform.position = hit.point;
+			currentInteractable.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+		}
+		else
+		{
+			currentInteractable.transform.position = HoldingPosition;
 		}
 	}
 
@@ -90,7 +118,7 @@ public class PickupAbility : MonoBehaviour
 		Debug.Log($"Picking up {currentInteractable.name}");
 		currentInteractable.transform.SetParent(socket);
 		currentInteractable.ChangeState(Interactable.State.Holding);
-		currentInteractable.transform.position = cameraTransform.position + cameraTransform.forward * minPickupDistance;
+		currentInteractable.transform.position = HoldingPosition;
 	}
 
 	private void ReleaseItem()

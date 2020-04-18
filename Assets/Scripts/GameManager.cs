@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
 	private float originalFixedDelta;
 	private Baby baby;
+	private Rigidbody[] babyBodies;
 
 	public bool DisableInput
 	{
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
 
 		originalFixedDelta = Time.fixedDeltaTime;
 		baby = FindObjectOfType<Baby>();
+		babyBodies = baby.GetComponentsInChildren<Rigidbody>();
 	}
 
 	void Start()
@@ -61,6 +63,8 @@ public class GameManager : MonoBehaviour
 		Debug.Log("TimeStop starts now");
 		var timescaleTweener = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, minTimeScale, timeStopDuration).SetEase(timeStopEase);
 		DOTween.To(() => Time.fixedDeltaTime, x => Time.fixedDeltaTime = x, Time.fixedDeltaTime * minTimeScale, timeStopDuration).SetEase(timeStopEase);
+		foreach (var body in babyBodies)
+			body.isKinematic = true;
 		yield return timescaleTweener.WaitForCompletion();
 
 		// Start Game!
@@ -73,6 +77,8 @@ public class GameManager : MonoBehaviour
 		Debug.Log("Time's up! Let's play");
 		timescaleTweener = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1f, timeStopDuration).SetEase(timeStopEase);
 		DOTween.To(() => Time.fixedDeltaTime, x => Time.fixedDeltaTime = x, originalFixedDelta, timeStopDuration).SetEase(timeStopEase);
+		foreach (var body in babyBodies)
+			body.isKinematic = false;
 		yield return timescaleTweener.WaitForCompletion();
 
 		yield return new WaitForSeconds(checkWinConditionAfterDuration);
