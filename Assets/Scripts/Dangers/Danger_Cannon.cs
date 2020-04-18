@@ -20,6 +20,9 @@ public class Danger_Cannon : Danger
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(spawnPosition.position, spawnPosition.forward * 50.0f);
+        Gizmos.DrawRay(spawnPosition.position, spawnPosition.forward * 150.0f);
+        Vector3 forwardFlat = spawnPosition.forward;
+        forwardFlat.y = 0.0f;
+        Gizmos.DrawRay(transform.position, forwardFlat * 150.0f);
     }
 }
