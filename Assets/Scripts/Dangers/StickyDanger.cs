@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MeshStick : MonoBehaviour
+public class StickyDanger : MonoBehaviour
 {
     public Rigidbody ownRigid;
     bool isSticking = false;
