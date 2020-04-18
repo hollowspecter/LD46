@@ -20,9 +20,15 @@ public class Interactable : MonoBehaviour
 	protected int originalLayer;
 	protected int ignoreRaycastLayer;
 	protected CollisionChecker collisionChecker;
+	protected Material opaqueMaterial;
+	protected MeshRenderer meshRenderer;
+	protected PickupIndicator pickupIndicator;
 
 	public State CurrentState => state;
 	public bool IsCollidingWithDanger => collisionChecker.IsCollidingWithDanger;
+
+	public Material validHoloMaterial;
+	public Material invalidHoloMaterial;
 
 	void Awake()
 	{
@@ -31,18 +37,24 @@ public class Interactable : MonoBehaviour
 		originalLayer = gameObject.layer;
 		ignoreRaycastLayer = LayerMask.NameToLayer("Ignore Raycast");
 		collisionChecker = GetComponentInChildren<CollisionChecker>();
+		meshRenderer = GetComponent<MeshRenderer>();
+		opaqueMaterial = meshRenderer.material;
+		pickupIndicator = GetComponentInChildren<PickupIndicator>();
 	}
+
 
 	private void OnEnable()
 	{
 		collisionChecker.onCollidingWithDangerEnter.AddListener(OnCollidingWithDangerEnter);
 		collisionChecker.onCollidingWithDangerExit.AddListener(OnCollidingWithDangerExit);
+		pickupIndicator.enableIndicator();
 	}
 
 	private void OnDisable()
 	{
 		collisionChecker.onCollidingWithDangerEnter.RemoveListener(OnCollidingWithDangerEnter);
 		collisionChecker.onCollidingWithDangerExit.RemoveListener(OnCollidingWithDangerExit);
+		pickupIndicator.disableIndicator();
 	}
 
 	public void ChangeState(State newState)
@@ -54,6 +66,15 @@ public class Interactable : MonoBehaviour
 				rigidbody.isKinematic = false;
 				gameObject.layer = originalLayer;
 				collider.enabled = true;
+				
+				//Set Material
+				meshRenderer.material = opaqueMaterial;
+				meshRenderer.receiveShadows = true;
+				meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+
+				//Set Indicator
+				pickupIndicator.enableIndicator();
+
 				break;
 		}
 
@@ -66,6 +87,20 @@ public class Interactable : MonoBehaviour
 				rigidbody.isKinematic = true;
 				gameObject.layer = ignoreRaycastLayer;
 				collider.enabled = false;
+
+				//set Material
+				if(validHoloMaterial == null)
+				{
+					print("Missing Holomaterial: " + this.name);
+					break;
+				}
+				meshRenderer.material = validHoloMaterial;
+				meshRenderer.receiveShadows = false;
+				meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
+				//Set Indicator
+				pickupIndicator.disableIndicator();
+
 				break;
 		}
 	}
@@ -74,7 +109,9 @@ public class Interactable : MonoBehaviour
 	{
 		if (CurrentState == State.Holding)
 		{
-			// TODO mathew: change color to negative
+			//change color to negative
+			meshRenderer.material = invalidHoloMaterial;
+				
 		}
 	}
 
@@ -82,7 +119,8 @@ public class Interactable : MonoBehaviour
 	{
 		if (CurrentState == State.Holding)
 		{
-			// TODO mathew: change color to positive
+			//change color to positive
+			meshRenderer.material = validHoloMaterial;
 		}
 	}
 }
