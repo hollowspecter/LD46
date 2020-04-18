@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ramp
+  m_Name: ValidHolo
   m_Shader: {fileID: -6465566751694194690, guid: b133c2c83afc27045bb2fee1b4efaa12,
     type: 3}
   m_ShaderKeywords: 
@@ -66,14 +66,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_1619953E: 1
-    - Vector1_17EE7DBF: 20
+    - Vector1_1619953E: 0
+    - Vector1_17EE7DBF: 8.99
     - Vector1_2CA01936: 10
     - Vector1_3C824210: 1.1
-    - Vector1_68C38983: 0.007
+    - Vector1_68C38983: 0.297
     - Vector1_73712EA6: 1.02
     - Vector1_BB65044: 0
-    - Vector1_DABC2890: 0.7
+    - Vector1_DABC2890: 0.42
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -98,6 +98,7 @@ Material:
     m_Colors:
     - Color_4121EC45: {r: 0.8490566, g: 0.4910056, b: 0.06808472, a: 0}
     - Color_BB2F8619: {r: 0, g: 0.5667982, b: 1, a: 0}
+    - HoloColor: {r: 0.25511748, g: 0.4080409, b: 0.8584906, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
