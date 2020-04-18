@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeUntilTimeStop: 0.5
-  timeStopDuration: 0.5
-  timeStopEase: 9
-  minTimeScale: 0.03
+  timeStopDuration: 0.1
+  timeStopEase: 1
+  minTimeScale: 0.01
+  slowedTimeDuration: 10
+  checkWinConditionAfterDuration: 5
   cutsceneCamera: {fileID: 0}
