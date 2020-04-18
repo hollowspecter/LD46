@@ -17,6 +17,8 @@ public class Interactable : MonoBehaviour
 	protected State state = State.Default;
 	protected new Rigidbody rigidbody;
 	protected new Collider collider;
+	protected int originalLayer;
+	protected int ignoreRaycastLayer;
 
 	public State CurrentState => state;
 
@@ -24,6 +26,8 @@ public class Interactable : MonoBehaviour
 	{
 		rigidbody = GetComponent<Rigidbody>();
 		collider = GetComponent<Collider>();
+		originalLayer = gameObject.layer;
+		ignoreRaycastLayer = LayerMask.NameToLayer("Ignore Raycast");
 	}
 
 	public void ChangeState(State newState)
@@ -33,7 +37,8 @@ public class Interactable : MonoBehaviour
 		{
 			case State.Holding:
 				rigidbody.isKinematic = false;
-				//collider.enabled = true;
+				gameObject.layer = originalLayer;
+				collider.enabled = true;
 				break;
 		}
 
@@ -44,7 +49,8 @@ public class Interactable : MonoBehaviour
 		{
 			case State.Holding:
 				rigidbody.isKinematic = true;
-				//collider.enabled = false;
+				gameObject.layer = ignoreRaycastLayer;
+				collider.enabled = false;
 				break;
 		}
 	}
