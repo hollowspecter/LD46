@@ -117,7 +117,8 @@ public class Interactable : MonoBehaviour
 		if (CurrentState == State.Holding)
 		{
 			//change color to negative
-			meshRenderer.material = invalidHoloMaterial;
+			if (meshRenderer)
+				meshRenderer.material = invalidHoloMaterial;
 
 		}
 	}
@@ -127,7 +128,8 @@ public class Interactable : MonoBehaviour
 		if (CurrentState == State.Holding)
 		{
 			//change color to positive
-			meshRenderer.material = validHoloMaterial;
+			if (meshRenderer)
+				meshRenderer.material = validHoloMaterial;
 		}
 	}
 }

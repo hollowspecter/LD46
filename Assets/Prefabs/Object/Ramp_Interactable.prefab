@@ -57,6 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8141d034a9293d4da93a9eaebc3a619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCollidingWithDanger: 0
   onCollidingWithDangerEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -79,7 +80,7 @@ GameObject:
   - component: {fileID: 1495417061}
   - component: {fileID: 1495417060}
   m_Layer: 12
-  m_Name: Ramp
+  m_Name: Ramp_Interactable
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
