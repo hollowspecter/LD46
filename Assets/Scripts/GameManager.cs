@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -119,18 +120,24 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds(checkWinConditionAfterDuration);
 
 		if (baby.IsDead)
-			OnLose();
+			yield return StartCoroutine(OnLose());
 		else
-			OnWin();
+			yield return StartCoroutine(OnWin());
 	}
 
-	private void OnWin()
+	private IEnumerator OnWin()
 	{
 		Debug.Log("You win!");
+		winUI.SetActive(true);
+		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 
-	private void OnLose()
+	private IEnumerator OnLose()
 	{
 		Debug.Log("You lose!");
+		loseUI.SetActive(true);
+		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 }
