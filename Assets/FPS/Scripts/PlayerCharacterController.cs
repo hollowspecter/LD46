@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using Cinemachine;
 
 [RequireComponent(typeof(CharacterController), typeof(PlayerInputHandler))]
 public class PlayerCharacterController : MonoBehaviour
 {
 	[Header("References")]
 	[Tooltip("Reference to the main camera used for the player")]
-	public Camera playerCamera;
+	public CinemachineVirtualCamera playerCamera;
 
 	[Header("General")]
 	[Tooltip("Force applied downward when in the air")]
