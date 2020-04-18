@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{c6e13cee-b7f3-48ed-9353-046c8157f7d4}">
+		<property name="assetPath">
+			<value>Car/419691__14fvaltrovat__car-driving.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>9.2684791666666673</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e5852e90-108c-4bd2-8dec-66b070f61d5b}</destination>
+		</relationship>
+	</object>
+</objects>
