@@ -4,24 +4,17 @@ using UnityEngine;
 
 public abstract class Danger : MonoBehaviour
 {
-    public bool isPaused = true;
-    protected virtual void Update()
+    public float delay = 0.0f;
+
+    public virtual void Start()
     {
-        if(isPaused)
-        {
-            PausedUpdate();
-        }
-        else
-        {
-            UnpausedUpdate();
-        }
+        StartCoroutine(DelayDangerStart());
     }
 
-    public abstract void Pause();
-    public abstract void Unpause();
-
-    // Update is called once per frame
-    protected abstract void PausedUpdate();
-
-    protected abstract void UnpausedUpdate();
+    IEnumerator DelayDangerStart()
+    {
+        yield return new WaitForSeconds(delay);
+        StartDanger();
+    }
+    protected abstract void StartDanger();
 }
