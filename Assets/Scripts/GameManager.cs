@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
 	private Rigidbody[] babyBodies;
 	private FMOD.Studio.EventInstance bulletTimeInstance;
 	private CinemachineBrain brain;
+	private Interactable[] interactables;
+	private LayerMask dangerLayer;
 
 	public bool DisableInput
 	{
@@ -70,6 +72,8 @@ public class GameManager : MonoBehaviour
 		babyBodies = baby.GetComponentsInChildren<Rigidbody>();
 		bulletTimeInstance = FMODUnity.RuntimeManager.CreateInstance(bulletTimeSnapshot);
 		brain = FindObjectOfType<CinemachineBrain>();
+		interactables = FindObjectsOfType<Interactable>();
+		dangerLayer = LayerMask.NameToLayer("Danger");
 	}
 
 	void Start()
@@ -79,7 +83,9 @@ public class GameManager : MonoBehaviour
 
 	private IEnumerator GameFlow()
 	{
-		// Setup level and wait for input
+		/*
+		 * Setup level and wait for input
+		 */
 		Debug.Log("Starting the Scene!");
 		cutsceneCamera.Priority = 100;
 		DisableInput = true;
@@ -88,12 +94,16 @@ public class GameManager : MonoBehaviour
 		bulletTimeVolume.weight = 0f;
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
-		// Start cutscene
+		/*
+		 * Start cutscene
+		 */
 		Time.timeScale = 1f;
 		startUI.SetActive(false);
 		yield return new WaitForSeconds(timeUntilTimeStop);
 
-		// Time is stopping now
+		/*
+		 * Time is stopping now
+		 */
 		Debug.Log("TimeStop starts now");
 		bulletTimeInstance.start();
 		var timescaleTweener = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, minTimeScale, timeStopDuration).SetEase(timeStopEase);
@@ -103,22 +113,35 @@ public class GameManager : MonoBehaviour
 			body.isKinematic = true;
 		yield return timescaleTweener.WaitForCompletion();
 
-		// Wait for the camera blend to end
+		/*
+		 * Wait for the camera blend to end
+		 */
 		cutsceneCamera.Priority = 0;
 		yield return new WaitForSecondsRealtime(brain.m_DefaultBlend.m_Time);
 
-		// Start Game!
+		/*
+		 * Start Game!
+		 */
 		Debug.Log("Time is nearly stopped, enable Input");
 		DisableInput = false;
 		GameStartTime = Time.unscaledTime;
 		yield return new WaitForSecondsRealtime(SlowedTimeDuration);
 
-		// Reset the time scale
+		/*
+		 * Reset the time scale
+		 */
 		Debug.Log("Time's up! Let's play");
 		bulletTimeInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 		timescaleTweener = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1f, timeStopDuration).SetEase(timeStopEase);
 		DOTween.To(() => Time.fixedDeltaTime, x => Time.fixedDeltaTime = x, originalFixedDelta, timeStopDuration).SetEase(timeStopEase);
 		DOTween.To(() => bulletTimeVolume.weight, x => bulletTimeVolume.weight = x, 0f, timeStopDuration).SetEase(timeStopEase);
+		// make all interactables to dangers so they can also kill the baby
+		foreach (var interactable in interactables)
+		{
+			interactable.gameObject.layer = dangerLayer;
+			interactable.gameObject.tag = "Danger";
+		}
+		// make baby able to fly away
 		foreach (var body in babyBodies)
 			body.isKinematic = false;
 		yield return timescaleTweener.WaitForCompletion();
