@@ -7,6 +7,8 @@ public class CollisionChecker : MonoBehaviour
 {
 	private int dangerCount = 0;
 
+	public bool isCollidingWithDanger = false; // for debug
+
 	[HideInInspector]
 	public UnityEvent onCollidingWithDangerEnter;
 	[HideInInspector]
@@ -22,6 +24,8 @@ public class CollisionChecker : MonoBehaviour
 				onCollidingWithDangerEnter?.Invoke();
 
 			dangerCount++;
+
+			isCollidingWithDanger = IsCollidingWithDanger; // for debug
 		}
 	}
 
@@ -33,6 +37,8 @@ public class CollisionChecker : MonoBehaviour
 
 			if (!IsCollidingWithDanger)
 				onCollidingWithDangerExit?.Invoke();
+
+			isCollidingWithDanger = IsCollidingWithDanger; // for debug
 		}
 	}
 }
