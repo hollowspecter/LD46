@@ -20,8 +20,10 @@ public class Interactable : MonoBehaviour
 	protected int originalLayer;
 	protected int ignoreRaycastLayer;
 	protected CollisionChecker collisionChecker;
-	protected Material opaqueMaterial;
-	protected MeshRenderer meshRenderer;
+	protected Material[] opaqueMaterials;
+	protected Material[] validHoloMaterials;
+	protected Material[] invalidHoloMaterials;
+
 	protected PickupIndicator pickupIndicator;
 
 	public State CurrentState => state;
@@ -29,6 +31,7 @@ public class Interactable : MonoBehaviour
 
 	public Material validHoloMaterial;
 	public Material invalidHoloMaterial;
+	public MeshRenderer meshRenderer;
 
 	void Awake()
 	{
@@ -37,10 +40,13 @@ public class Interactable : MonoBehaviour
 		originalLayer = gameObject.layer;
 		ignoreRaycastLayer = LayerMask.NameToLayer("Ignore Raycast");
 		collisionChecker = GetComponentInChildren<CollisionChecker>();
-		meshRenderer = GetComponent<MeshRenderer>();
 		if (meshRenderer != null)
-			opaqueMaterial = meshRenderer.material;
+			{opaqueMaterials = meshRenderer.materials;}
 		pickupIndicator = GetComponentInChildren<PickupIndicator>();
+	}
+	void Start()
+	{
+		GenerateHoloMaterialArrays();
 	}
 
 
@@ -71,7 +77,7 @@ public class Interactable : MonoBehaviour
 				//Set Material
 				if (meshRenderer != null)
 				{
-					meshRenderer.material = opaqueMaterial;
+					meshRenderer.materials = opaqueMaterials;
 					meshRenderer.receiveShadows = true;
 					meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
 				}
@@ -93,14 +99,9 @@ public class Interactable : MonoBehaviour
 				collider.enabled = false;
 
 				//set Material
-				if (validHoloMaterial == null)
-				{
-					print("Missing Holomaterial: " + this.name);
-					break;
-				}
 				if (meshRenderer != null)
 				{
-					meshRenderer.material = validHoloMaterial;
+					meshRenderer.materials = validHoloMaterials;
 					meshRenderer.receiveShadows = false;
 					meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 				}
@@ -111,14 +112,26 @@ public class Interactable : MonoBehaviour
 				break;
 		}
 	}
+	private void GenerateHoloMaterialArrays()
+	{
+		validHoloMaterials = meshRenderer.materials;
+		invalidHoloMaterials = meshRenderer.materials;
+		for (int i = 0; i < meshRenderer.materials.Length; i++)
+		{
+			validHoloMaterials[i] = validHoloMaterial;
+			invalidHoloMaterials[i] = invalidHoloMaterial;
+			print("materials of: " + name + i + ": " + meshRenderer.materials[i]);
+		}
+
+	} 
 
 	public void OnCollidingWithDangerEnter()
 	{
 		if (CurrentState == State.Holding)
 		{
 			//change color to negative
-			if (meshRenderer)
-				meshRenderer.material = invalidHoloMaterial;
+			if (meshRenderer == null) return;
+			meshRenderer.materials = validHoloMaterials;
 
 		}
 	}
@@ -128,8 +141,8 @@ public class Interactable : MonoBehaviour
 		if (CurrentState == State.Holding)
 		{
 			//change color to positive
-			if (meshRenderer)
-				meshRenderer.material = validHoloMaterial;
+			if (meshRenderer == null) return;
+ 			meshRenderer.materials = invalidHoloMaterials;
 		}
 	}
 }

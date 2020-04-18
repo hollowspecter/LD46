@@ -491,6 +491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   validHoloMaterial: {fileID: 2100000, guid: a06b59cefc9b4654b856605378d3fb44, type: 2}
   invalidHoloMaterial: {fileID: 2100000, guid: 45b76f7e81b823c4d9f3281b02d2e3d7, type: 2}
+  meshRenderer: {fileID: 8467202838762944303}
 --- !u!1001 &7150256946919073388
 PrefabInstance:
   m_ObjectHideFlags: 0
