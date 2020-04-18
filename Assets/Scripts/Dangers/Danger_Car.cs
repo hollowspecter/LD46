@@ -12,34 +12,8 @@ public class Danger_Car : Danger
 		rigidSphere = GetComponent<Rigidbody>();
 	}
 
-	void Start()
+	protected override void StartDanger()
 	{
 		rigidSphere.velocity = forwardSpeed * transform.forward;
-	}
-
-	protected override void Update()
-	{
-		base.Update();
-	}
-
-	public override void Unpause()
-	{
-		Debug.Log("Unpause");
-		isPaused = false;
-	}
-
-	public override void Pause()
-	{
-
-	}
-
-	protected override void PausedUpdate()
-	{
-
-	}
-
-	protected override void UnpausedUpdate()
-	{
-
 	}
 }
