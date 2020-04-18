@@ -48,7 +48,8 @@ public class PickupAbility : MonoBehaviour
 			{
 				PickupItem();
 			}
-			else if (currentInteractable?.CurrentState == Interactable.State.Holding)
+			else if (currentInteractable?.CurrentState == Interactable.State.Holding &&
+				currentInteractable?.IsCollidingWithDanger == false)
 			{
 				ReleaseItem();
 			}
@@ -71,7 +72,7 @@ public class PickupAbility : MonoBehaviour
 
 	private void RepositionObject()
 	{
-		if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out var hit, pickupDistance + 1f, layerMask))
+		if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out var hit, pickupDistance + 1f, layerMask, QueryTriggerInteraction.Ignore))
 		{
 			currentInteractable.transform.position = hit.point;
 			currentInteractable.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
@@ -85,7 +86,7 @@ public class PickupAbility : MonoBehaviour
 	private void CheckForInteractables()
 	{
 		// Check if you are currently looking at an interactable
-		if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out var hit, pickupDistance, layerMask))
+		if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out var hit, pickupDistance, layerMask, QueryTriggerInteraction.Ignore))
 		{
 			if (hit.collider.CompareTag(InteractableTag))
 			{
