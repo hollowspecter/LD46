@@ -27,12 +27,15 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	[FMODUnity.EventRef]
 	protected string bulletTimeSnapshot = "";
+	[SerializeField]
+	protected GameObject startUI;
 
 	private float originalFixedDelta;
 	private Baby baby;
 	private Rigidbody[] babyBodies;
 	private FMOD.Studio.EventInstance bulletTimeInstance;
 	private CinemachineBrain brain;
+	private float gameStartTime;
 
 	public bool DisableInput
 	{
@@ -60,10 +63,17 @@ public class GameManager : MonoBehaviour
 
 	private IEnumerator GameFlow()
 	{
-		// Starting cutscene
+		// Setup level and wait for input
 		Debug.Log("Starting the Scene!");
 		cutsceneCamera.Priority = 100;
 		DisableInput = true;
+		startUI.SetActive(true);
+		Time.timeScale = 0f;
+		yield return new WaitUntil(() => Input.anyKeyDown);
+
+		// Start cutscene
+		Time.timeScale = 1f;
+		startUI.SetActive(false);
 		yield return new WaitForSeconds(timeUntilTimeStop);
 
 		// Time is stopping now
@@ -83,6 +93,7 @@ public class GameManager : MonoBehaviour
 		// Start Game!
 		Debug.Log("Time is nearly stopped, enable Input");
 		DisableInput = false;
+		gameStartTime = Time.unscaledTime;
 		yield return new WaitForSecondsRealtime(slowedTimeDuration);
 
 		// Reset the time scale
