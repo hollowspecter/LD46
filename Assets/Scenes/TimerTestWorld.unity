@@ -631,6 +631,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2657517249328048857, guid: 795d9e9152e7f1c4e8626a5477168c68,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657517249328048857, guid: 795d9e9152e7f1c4e8626a5477168c68,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657517249328048857, guid: 795d9e9152e7f1c4e8626a5477168c68,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657517249328048857, guid: 795d9e9152e7f1c4e8626a5477168c68,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8467202838762944290, guid: 795d9e9152e7f1c4e8626a5477168c68,
         type: 3}
       propertyPath: m_Name
