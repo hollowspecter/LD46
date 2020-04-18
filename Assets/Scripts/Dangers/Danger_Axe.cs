@@ -22,6 +22,7 @@ public class Danger_Axe : Danger
             rigid = GetComponent<Rigidbody>();
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, transform.forward * throwSpeed/6.0f);
-        Gizmos.DrawRay(rigid.worldCenterOfMass, transform.forward * throwSpeed/6.0f);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(rigid.worldCenterOfMass, 0.2f);
     }
 }

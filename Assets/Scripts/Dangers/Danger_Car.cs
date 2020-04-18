@@ -4,16 +4,29 @@ using UnityEngine;
 
 public class Danger_Car : Danger
 {
-	Rigidbody rigidSphere;
+	Rigidbody rigid;
+	public Vector3 centerOfMass;
 	public float forwardSpeed = 5.0f;
 	// Start is called before the first frame update
 	void Awake()
 	{
-		rigidSphere = GetComponent<Rigidbody>();
+		rigid = GetComponent<Rigidbody>();
+		rigid.centerOfMass = centerOfMass;
 	}
 
 	protected override void StartDanger()
 	{
-		rigidSphere.velocity = forwardSpeed * transform.forward;
+		rigid.velocity = forwardSpeed * transform.forward;
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		if (rigid == null)
+		{
+			rigid = GetComponent<Rigidbody>();
+			rigid.centerOfMass = centerOfMass;
+		}
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(rigid.worldCenterOfMass, 0.2f);
 	}
 }
