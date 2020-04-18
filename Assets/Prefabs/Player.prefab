@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 636376951811435802}
   - component: {fileID: 7756854522182427599}
   - component: {fileID: 2940610084435571318}
+  - component: {fileID: 8069521216919055616}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -341,7 +342,7 @@ MonoBehaviour:
   minPickupDistance: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 51
+    m_Bits: 4147
 --- !u!143 &2940610084435571318
 CharacterController:
   m_ObjectHideFlags: 0
@@ -360,6 +361,18 @@ CharacterController:
   m_SkinWidth: 0.001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &8069521216919055616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7436264297871034392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62af8e8a40b4f6947959fdb0187265fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7704646449032561783
 GameObject:
   m_ObjectHideFlags: 0

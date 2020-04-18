@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class GameManager : MonoBehaviour
 	protected GameObject winUI;
 	[SerializeField]
 	protected GameObject loseUI;
+	[SerializeField]
+	protected Volume bulletTimeVolume;
 
 	private float originalFixedDelta;
 	private Baby baby;
@@ -82,6 +85,7 @@ public class GameManager : MonoBehaviour
 		DisableInput = true;
 		startUI.SetActive(true);
 		Time.timeScale = 0f;
+		bulletTimeVolume.weight = 0f;
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
 		// Start cutscene
@@ -94,6 +98,7 @@ public class GameManager : MonoBehaviour
 		bulletTimeInstance.start();
 		var timescaleTweener = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, minTimeScale, timeStopDuration).SetEase(timeStopEase);
 		DOTween.To(() => Time.fixedDeltaTime, x => Time.fixedDeltaTime = x, Time.fixedDeltaTime * minTimeScale, timeStopDuration).SetEase(timeStopEase);
+		DOTween.To(() => bulletTimeVolume.weight, x => bulletTimeVolume.weight = x, 1f, timeStopDuration).SetEase(timeStopEase);
 		foreach (var body in babyBodies)
 			body.isKinematic = true;
 		yield return timescaleTweener.WaitForCompletion();
@@ -113,13 +118,14 @@ public class GameManager : MonoBehaviour
 		bulletTimeInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 		timescaleTweener = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1f, timeStopDuration).SetEase(timeStopEase);
 		DOTween.To(() => Time.fixedDeltaTime, x => Time.fixedDeltaTime = x, originalFixedDelta, timeStopDuration).SetEase(timeStopEase);
+		DOTween.To(() => bulletTimeVolume.weight, x => bulletTimeVolume.weight = x, 0f, timeStopDuration).SetEase(timeStopEase);
 		foreach (var body in babyBodies)
 			body.isKinematic = false;
 		yield return timescaleTweener.WaitForCompletion();
 
-		DisableInput = true;
 		yield return new WaitForSeconds(checkWinConditionAfterDuration);
 
+		DisableInput = true;
 		if (baby.IsDead)
 			yield return StartCoroutine(OnLose());
 		else
@@ -131,7 +137,9 @@ public class GameManager : MonoBehaviour
 		Debug.Log("You win!");
 		winUI.SetActive(true);
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+#if !UNITY_EDITOR
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+#endif
 	}
 
 	private IEnumerator OnLose()
@@ -139,6 +147,8 @@ public class GameManager : MonoBehaviour
 		Debug.Log("You lose!");
 		loseUI.SetActive(true);
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+#if !UNITY_EDITOR
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+#endif
 	}
 }
