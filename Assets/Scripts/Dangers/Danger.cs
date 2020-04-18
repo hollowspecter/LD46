@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Danger : MonoBehaviour
 {
     public float delay = 0.0f;
+    protected bool hasStarted = false;
 
     public virtual void Start()
     {
@@ -14,6 +15,7 @@ public abstract class Danger : MonoBehaviour
     IEnumerator DelayDangerStart()
     {
         yield return new WaitForSeconds(delay);
+        hasStarted = true;
         StartDanger();
     }
     protected abstract void StartDanger();
