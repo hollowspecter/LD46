@@ -4,41 +4,42 @@ using UnityEngine;
 
 public class Danger_Car : Danger
 {
-    Rigidbody rigidSphere;
-    public float forwardSpeed = 5.0f;
-    // Start is called before the first frame update
-    void Awake()
-    {
-        rigidSphere = GetComponent<Rigidbody>();
-    }
+	Rigidbody rigidSphere;
+	public float forwardSpeed = 5.0f;
+	// Start is called before the first frame update
+	void Awake()
+	{
+		rigidSphere = GetComponent<Rigidbody>();
+	}
 
-    protected override void Update()
-    {
-        base.Update();
-        if (Input.GetKeyDown(KeyCode.Space))
-            Unpause();
+	void Start()
+	{
+		rigidSphere.velocity = forwardSpeed * Vector3.forward;
+	}
 
-    }
+	protected override void Update()
+	{
+		base.Update();
+	}
 
-    public override void Unpause()
-    {
-        Debug.Log("Unpause");
-        isPaused = false;
-        rigidSphere.velocity = forwardSpeed * Vector3.forward;
-    }
+	public override void Unpause()
+	{
+		Debug.Log("Unpause");
+		isPaused = false;
+	}
 
-    public override void Pause()
-    {
+	public override void Pause()
+	{
 
-    }
+	}
 
-    protected override void PausedUpdate()
-    {
+	protected override void PausedUpdate()
+	{
 
-    }
+	}
 
-    protected override void UnpausedUpdate()
-    {
+	protected override void UnpausedUpdate()
+	{
 
-    }
+	}
 }
