@@ -337,8 +337,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 8778698593250308914}
   socket: {fileID: 3259600233887652501}
-  pickupDistance: 3
-  minPickupDistance: 3
+  pickupDistance: 5
+  minPickupDistance: 5
   layerMask:
     serializedVersion: 2
     m_Bits: 51
