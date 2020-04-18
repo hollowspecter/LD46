@@ -7,8 +7,6 @@ public class PlayerCharacterController : MonoBehaviour
 	[Header("References")]
 	[Tooltip("Reference to the main camera used for the player")]
 	public Camera playerCamera;
-	[Tooltip("Audio source for footsteps, jump, etc...")]
-	public AudioSource audioSource;
 
 	[Header("General")]
 	[Tooltip("Force applied downward when in the air")]
@@ -93,11 +91,9 @@ public class PlayerCharacterController : MonoBehaviour
 		}
 	}
 
-	Health m_Health;
 	PlayerInputHandler m_InputHandler;
 	CharacterController m_Controller;
 	Vector3 m_GroundNormal;
-	Vector3 m_CharacterVelocity;
 	Vector3 m_LatestImpactSpeed;
 	float m_LastTimeJumped = 0f;
 	float m_CameraVerticalAngle = 0f;
