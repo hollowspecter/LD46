@@ -5,41 +5,24 @@ using UnityEngine;
 public class Danger_Axe : Danger
 {
     Rigidbody rigid;
-    public float rotationSpeed = 50.0f;
     public float throwSpeed = 50.0f;
-    public override void Pause()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Unpause()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    protected override void PausedUpdate()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    protected override void UnpausedUpdate()
-    {
-        throw new System.NotImplementedException();
-    }
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();
     }
     // Start is called before the first frame update
-    void Start()
+    protected override void StartDanger()
     {
-        rigid.angularVelocity = rotationSpeed * transform.right;
-        rigid.AddForce(throwSpeed * transform.forward,ForceMode.Impulse);
+        rigid.AddForceAtPosition(throwSpeed * transform.forward, transform.position + transform.up * (1.0f), ForceMode.Impulse);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDrawGizmosSelected()
     {
-        
+        if (rigid == null)
+            rigid = GetComponent<Rigidbody>();
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, transform.forward * throwSpeed/6.0f);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(rigid.worldCenterOfMass, 0.2f);
     }
 }

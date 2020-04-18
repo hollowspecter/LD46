@@ -10,7 +10,6 @@ public class MeshStick : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (isSticking) return;
-        Debug.Log("CollisionEnter");
         if(collision.rigidbody != null)
         {
             Stick(collision.rigidbody);
@@ -19,7 +18,9 @@ public class MeshStick : MonoBehaviour
     public void Stick(Rigidbody r)
     {
         isSticking = true;
-        FixedJoint f = ownRigid.gameObject.AddComponent<FixedJoint>();
-        f.connectedBody = r;
+        ownRigid.angularVelocity = Vector3.zero;
+        ownRigid.velocity = Vector3.zero;
+        FixedJoint f = r.gameObject.AddComponent<FixedJoint>();
+        f.connectedBody = ownRigid;
     }
 }

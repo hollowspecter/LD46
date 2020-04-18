@@ -24,9 +24,14 @@ public class GameManager : MonoBehaviour
 	[Header("References")]
 	[SerializeField]
 	protected CinemachineVirtualCamera cutsceneCamera;
+	[SerializeField]
+	[FMODUnity.EventRef]
+	protected string bulletTimeSnapshot = "";
 
 	private float originalFixedDelta;
 	private Baby baby;
+	private Rigidbody[] babyBodies;
+	private FMOD.Studio.EventInstance bulletTimeInstance;
 
 	public bool DisableInput
 	{
@@ -42,6 +47,8 @@ public class GameManager : MonoBehaviour
 
 		originalFixedDelta = Time.fixedDeltaTime;
 		baby = FindObjectOfType<Baby>();
+		babyBodies = baby.GetComponentsInChildren<Rigidbody>();
+		bulletTimeInstance = FMODUnity.RuntimeManager.CreateInstance(bulletTimeSnapshot);
 	}
 
 	void Start()
@@ -59,8 +66,11 @@ public class GameManager : MonoBehaviour
 
 		// Time is stopping now
 		Debug.Log("TimeStop starts now");
+		bulletTimeInstance.start();
 		var timescaleTweener = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, minTimeScale, timeStopDuration).SetEase(timeStopEase);
 		DOTween.To(() => Time.fixedDeltaTime, x => Time.fixedDeltaTime = x, Time.fixedDeltaTime * minTimeScale, timeStopDuration).SetEase(timeStopEase);
+		foreach (var body in babyBodies)
+			body.isKinematic = true;
 		yield return timescaleTweener.WaitForCompletion();
 
 		// Start Game!
@@ -71,8 +81,11 @@ public class GameManager : MonoBehaviour
 
 		// Reset the time scale
 		Debug.Log("Time's up! Let's play");
+		bulletTimeInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 		timescaleTweener = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1f, timeStopDuration).SetEase(timeStopEase);
 		DOTween.To(() => Time.fixedDeltaTime, x => Time.fixedDeltaTime = x, originalFixedDelta, timeStopDuration).SetEase(timeStopEase);
+		foreach (var body in babyBodies)
+			body.isKinematic = false;
 		yield return timescaleTweener.WaitForCompletion();
 
 		yield return new WaitForSeconds(checkWinConditionAfterDuration);

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Baby : MonoBehaviour
 {
-	LayerMask dangerLayer;
 	bool isDead = false;
 
 	public bool IsDead => isDead;
