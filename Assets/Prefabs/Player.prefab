@@ -341,7 +341,7 @@ MonoBehaviour:
   minPickupDistance: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 51
+    m_Bits: 4147
 --- !u!143 &2940610084435571318
 CharacterController:
   m_ObjectHideFlags: 0
