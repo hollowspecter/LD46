@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Danger
   - Interactable
   layers:
   - Default
@@ -14,9 +15,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Ground
+  - Danger
+  - Baby
   - 
   - 
   - 
