@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 	private Baby baby;
 	private Rigidbody[] babyBodies;
 	private FMOD.Studio.EventInstance bulletTimeInstance;
+	private CinemachineBrain brain;
 
 	public bool DisableInput
 	{
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
 		baby = FindObjectOfType<Baby>();
 		babyBodies = baby.GetComponentsInChildren<Rigidbody>();
 		bulletTimeInstance = FMODUnity.RuntimeManager.CreateInstance(bulletTimeSnapshot);
+		brain = FindObjectOfType<CinemachineBrain>();
 	}
 
 	void Start()
@@ -73,10 +75,14 @@ public class GameManager : MonoBehaviour
 			body.isKinematic = true;
 		yield return timescaleTweener.WaitForCompletion();
 
+		// Wait for the camera blend to end
+		cutsceneCamera.Priority = 0;
+		yield return null;
+		yield return new WaitUntil(() => !brain.IsBlending);
+
 		// Start Game!
 		Debug.Log("Time is nearly stopped, enable Input");
 		DisableInput = false;
-		cutsceneCamera.Priority = 0;
 		yield return new WaitForSecondsRealtime(slowedTimeDuration);
 
 		// Reset the time scale
