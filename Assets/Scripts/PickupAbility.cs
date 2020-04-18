@@ -27,6 +27,8 @@ public class PickupAbility : MonoBehaviour
 
 	protected Interactable currentInteractable = null;
 
+	float rotationOffset = 0.0f;
+	float rotationSpeed = 90.0f;
 	// Properties
 
 	protected Vector3 HoldingPosition => cameraTransform.position + cameraTransform.forward * minPickupDistance;
@@ -54,6 +56,14 @@ public class PickupAbility : MonoBehaviour
 				ReleaseItem();
 			}
 		}
+		if(Input.GetKey(KeyCode.Q))
+		{
+			rotationOffset -= rotationSpeed * Time.unscaledDeltaTime;
+		}
+		else if(Input.GetKey(KeyCode.E))
+		{
+			rotationOffset += rotationSpeed * Time.unscaledDeltaTime;
+		}
 	}
 
 	private void FixedUpdate()
@@ -75,7 +85,9 @@ public class PickupAbility : MonoBehaviour
 		if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out var hit, pickupDistance + 1f, layerMask, QueryTriggerInteraction.Ignore))
 		{
 			currentInteractable.transform.position = hit.point;
-			currentInteractable.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+			Vector3 tangent = Vector3.Cross(hit.normal, -transform.right);
+			tangent = Quaternion.Euler(0, rotationOffset, 0) * tangent;
+			currentInteractable.transform.rotation = Quaternion.LookRotation(tangent, hit.normal);
 		}
 		else
 		{
@@ -120,6 +132,11 @@ public class PickupAbility : MonoBehaviour
 		currentInteractable.transform.SetParent(socket);
 		currentInteractable.ChangeState(Interactable.State.Holding);
 		currentInteractable.transform.position = HoldingPosition;
+		Vector3 myforwardFlat = transform.forward;
+		myforwardFlat.y = 0.0f;
+		Vector3 theirForwardFlat = currentInteractable.transform.forward;
+		theirForwardFlat.y = 0.0f;
+		rotationOffset = -Vector3.Angle(myforwardFlat, theirForwardFlat);
 	}
 
 	private void ReleaseItem()
