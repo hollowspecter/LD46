@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
 		DisableInput = true;
 		startUI.SetActive(true);
 		Time.timeScale = 0f;
-		yield return new WaitUntil(() => Input.anyKeyDown);
+		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
 		// Start cutscene
 		Time.timeScale = 1f;
