@@ -160,7 +160,7 @@ public class PlayerCharacterController : MonoBehaviour
 		m_GroundNormal = Vector3.up;
 
 		// only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
-		if (Time.time >= m_LastTimeJumped + k_JumpGroundingPreventionTime)
+		if (Time.unscaledTime >= m_LastTimeJumped + k_JumpGroundingPreventionTime)
 		{
 			// if we're grounded, collect info about the ground normal with a downward capsule cast representing our character capsule
 			if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(m_Controller.height), m_Controller.radius, Vector3.down, out RaycastHit hit, chosenGroundCheckDistance, groundCheckLayers, QueryTriggerInteraction.Ignore))
@@ -247,7 +247,7 @@ public class PlayerCharacterController : MonoBehaviour
 						FMODUnity.RuntimeManager.PlayOneShot(jumpEvent);
 
 						// remember last time we jumped because we need to prevent snapping to ground for a short time
-						m_LastTimeJumped = Time.time;
+						m_LastTimeJumped = Time.unscaledTime;
 						hasJumpedThisFrame = true;
 
 						// Force grounding to false

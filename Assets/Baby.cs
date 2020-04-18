@@ -4,35 +4,38 @@ using UnityEngine;
 
 public class Baby : MonoBehaviour
 {
-    LayerMask dangerLayer;
-    bool isDead = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	LayerMask dangerLayer;
+	bool isDead = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public bool IsDead => isDead;
 
-    public void Die()
-    {
-        if(!isDead)
-        {
-            isDead = true;
-            Debug.Log("Baby is dead. You lose.");
-        }
-    }
+	// Start is called before the first frame update
+	void Start()
+	{
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Danger")
-        {
-            Die();
-        }
+	}
 
-    }
+	// Update is called once per frame
+	void Update()
+	{
+
+	}
+
+	public void Die()
+	{
+		if (!isDead)
+		{
+			isDead = true;
+			Debug.Log("Baby is dead. You lose.");
+		}
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.tag == "Danger")
+		{
+			Die();
+		}
+
+	}
 }
