@@ -4766,9 +4766,9 @@ GameObject:
   - component: {fileID: 5690504680547060512}
   - component: {fileID: 4779100517365561797}
   - component: {fileID: 4495113458364776667}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: wheel_frontRight
-  m_TagString: Untagged
+  m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4861,9 +4861,9 @@ GameObject:
   - component: {fileID: 2749110555559776393}
   - component: {fileID: 6673887625805540189}
   - component: {fileID: 4495113458719199660}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: spoiler
-  m_TagString: Untagged
+  m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4956,9 +4956,9 @@ GameObject:
   - component: {fileID: 7658322656728467075}
   - component: {fileID: 2338293831390071217}
   - component: {fileID: 4495113458358126243}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: wheel_frontLeft
-  m_TagString: Untagged
+  m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5051,9 +5051,9 @@ GameObject:
   - component: {fileID: 7458250607917192967}
   - component: {fileID: 6657974086737361713}
   - component: {fileID: 4495113457480704129}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: body
-  m_TagString: Untagged
+  m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5150,9 +5150,10 @@ GameObject:
   - component: {fileID: 4495113458965092297}
   - component: {fileID: 1382187588068877067}
   - component: {fileID: 1382187588722977742}
-  m_Layer: 0
+  - component: {fileID: 7233231318387197365}
+  m_Layer: 9
   m_Name: Danger_Car
-  m_TagString: Untagged
+  m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5208,6 +5209,29 @@ MonoBehaviour:
   delay: 0
   centerOfMass: {x: 0, y: 0, z: 0}
   forwardSpeed: 30
+--- !u!114 &7233231318387197365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4495113458965092294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Car
+  PlayEvent: 11
+  StopEvent: 12
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &5180067475459092836
 GameObject:
   m_ObjectHideFlags: 0
@@ -5220,9 +5244,9 @@ GameObject:
   - component: {fileID: 8880938221976513263}
   - component: {fileID: 751451276946633203}
   - component: {fileID: 4495113457691977821}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: wheel_backLeft
-  m_TagString: Untagged
+  m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5315,9 +5339,9 @@ GameObject:
   - component: {fileID: 6806008138905523428}
   - component: {fileID: 1010023315558092936}
   - component: {fileID: 4495113458167678593}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: wheel_backRight
-  m_TagString: Untagged
+  m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
