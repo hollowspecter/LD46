@@ -14,7 +14,7 @@ public class Danger_Car : Danger
 
 	void Start()
 	{
-		rigidSphere.velocity = forwardSpeed * Vector3.forward;
+		rigidSphere.velocity = forwardSpeed * transform.forward;
 	}
 
 	protected override void Update()
