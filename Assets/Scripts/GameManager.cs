@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
 		PlayerPrefs.SetInt(CurrentLevelKey, currentLevel);
 
 		// Setup the Buttons
-		var levelCount = SceneManager.sceneCountInBuildSettings - 2;
+		var levelCount = SceneManager.sceneCountInBuildSettings - 1;
 		for (int i = 0; i < levelCount; ++i)
 		{
 			var levelButton = Instantiate(levelButtonPrefab, levelButtonParent);
@@ -248,10 +248,10 @@ public class GameManager : MonoBehaviour
 	private void LoadLevel(GameObject buttonObject)
 	{
 		int level = int.Parse(buttonObject.GetComponentInChildren<TextMeshProUGUI>().text);
-		if (level + 1 == SceneManager.GetSceneAt(0).buildIndex)
+		if (level - 1 == SceneManager.GetSceneAt(0).buildIndex)
 			return;
 		StopCoroutine(gameFlowCoroutine);
-		StartCoroutine(ELoadLevel(level + 1));
+		StartCoroutine(ELoadLevel(level - 1));
 	}
 
 	private IEnumerator ELoadLevel(int buildIndex)
