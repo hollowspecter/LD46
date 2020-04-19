@@ -5,6 +5,8 @@ using Cinemachine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +25,11 @@ public class GameManager : MonoBehaviour
 	protected float slowedTimeDuration = 10f;
 	[SerializeField]
 	protected float checkWinConditionAfterDuration = 5f;
+	[Tooltip("Additively loads the lighting scene and sets it as active scene.")]
+	[SerializeField]
+	protected string lightingScene = "";
+	[SerializeField]
+	protected Color fadingColor = Color.white;
 	[Header("References")]
 	[SerializeField]
 	protected CinemachineVirtualCamera cutsceneCamera;
@@ -37,6 +44,8 @@ public class GameManager : MonoBehaviour
 	protected GameObject loseUI;
 	[SerializeField]
 	protected Volume bulletTimeVolume;
+	[SerializeField]
+	protected Image fader;
 
 	private float originalFixedDelta;
 	private Baby baby;
@@ -84,7 +93,7 @@ public class GameManager : MonoBehaviour
 	private IEnumerator GameFlow()
 	{
 		/*
-		 * Setup level and wait for input
+		 * Setup level
 		 */
 		Debug.Log("Starting the Scene!");
 		cutsceneCamera.Priority = 100;
@@ -92,11 +101,38 @@ public class GameManager : MonoBehaviour
 		startUI.SetActive(true);
 		Time.timeScale = 0f;
 		bulletTimeVolume.weight = 0f;
+		fader.color = fadingColor;
+
+		/*
+		 * Check for Lighting scene and additively load it
+		 */
+
+		if (!string.IsNullOrWhiteSpace(lightingScene))
+		{
+			Debug.Log("Load lighting scene");
+			yield return SceneManager.LoadSceneAsync(lightingScene, LoadSceneMode.Additive);
+			SceneManager.SetActiveScene(SceneManager.GetSceneByName(lightingScene));
+		}
+
+		/*
+		 * Fade In
+		 */
+
+		Debug.Log("Fade out!");
+		var faderOut = fader.DOFade(0f, 1f).SetUpdate(UpdateType.Normal, true);
+		yield return faderOut.WaitForCompletion();
+
+		/*
+		 * Wait for Input to Start
+		 */
+
+		Debug.Log("Waiting for Input");
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
 		/*
 		 * Start cutscene
 		 */
+		Debug.Log("Start Cutscene");
 		Time.timeScale = 1f;
 		startUI.SetActive(false);
 		yield return new WaitForSeconds(timeUntilTimeStop);
@@ -106,9 +142,9 @@ public class GameManager : MonoBehaviour
 		 */
 		Debug.Log("TimeStop starts now");
 		bulletTimeInstance.start();
-		var timescaleTweener = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, minTimeScale, timeStopDuration).SetEase(timeStopEase);
-		DOTween.To(() => Time.fixedDeltaTime, x => Time.fixedDeltaTime = x, Time.fixedDeltaTime * minTimeScale, timeStopDuration).SetEase(timeStopEase);
-		DOTween.To(() => bulletTimeVolume.weight, x => bulletTimeVolume.weight = x, 1f, timeStopDuration).SetEase(timeStopEase);
+		var timescaleTweener = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, minTimeScale, timeStopDuration).SetEase(timeStopEase).SetUpdate(UpdateType.Normal, true);
+		DOTween.To(() => Time.fixedDeltaTime, x => Time.fixedDeltaTime = x, Time.fixedDeltaTime * minTimeScale, timeStopDuration).SetEase(timeStopEase).SetUpdate(UpdateType.Normal, true);
+		DOTween.To(() => bulletTimeVolume.weight, x => bulletTimeVolume.weight = x, 1f, timeStopDuration).SetEase(timeStopEase).SetUpdate(UpdateType.Normal, true);
 		foreach (var body in babyBodies)
 			body.isKinematic = true;
 		yield return timescaleTweener.WaitForCompletion();
@@ -160,8 +196,12 @@ public class GameManager : MonoBehaviour
 		Debug.Log("You win!");
 		winUI.SetActive(true);
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-#if !UNITY_EDITOR
+		// Fade out
+		var fadeIn = fader.DOFade(1f, 1f);
+		yield return fadeIn.WaitForCompletion();
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+#if UNITY_EDITOR
+		EditorApplication.ExitPlaymode();
 #endif
 	}
 
@@ -170,8 +210,12 @@ public class GameManager : MonoBehaviour
 		Debug.Log("You lose!");
 		loseUI.SetActive(true);
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-#if !UNITY_EDITOR
+		// Fade out
+		var fadeIn = fader.DOFade(1f, 1f);
+		yield return fadeIn.WaitForCompletion();
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+#if UNITY_EDITOR
+		EditorApplication.ExitPlaymode();
 #endif
 	}
 }

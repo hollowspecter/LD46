@@ -19,7 +19,9 @@ public class PickupAbility : MonoBehaviour
 	[SerializeField]
 	protected float pickupDistance = 3f;
 	[SerializeField]
-	protected float minPickupDistance = 3f;
+	protected float minPickupDistance = 4f;
+	[SerializeField]
+	protected float placementDistanceOffset = 2f;
 	[SerializeField]
 	protected LayerMask layerMask;
 
@@ -51,16 +53,16 @@ public class PickupAbility : MonoBehaviour
 				PickupItem();
 			}
 			else if (currentInteractable?.CurrentState == Interactable.State.Holding &&
-				currentInteractable?.IsCollidingWithDanger == false)
+				currentInteractable?.IsColliding == false)
 			{
 				ReleaseItem();
 			}
 		}
-		if(Input.GetKey(KeyCode.Q))
+		if (Input.GetKey(KeyCode.Q))
 		{
 			rotationOffset -= rotationSpeed * Time.unscaledDeltaTime;
 		}
-		else if(Input.GetKey(KeyCode.E))
+		else if (Input.GetKey(KeyCode.E))
 		{
 			rotationOffset += rotationSpeed * Time.unscaledDeltaTime;
 		}
@@ -82,7 +84,7 @@ public class PickupAbility : MonoBehaviour
 
 	private void RepositionObject()
 	{
-		if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out var hit, pickupDistance + 1f, layerMask, QueryTriggerInteraction.Ignore))
+		if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out var hit, pickupDistance + placementDistanceOffset, layerMask, QueryTriggerInteraction.Ignore))
 		{
 			currentInteractable.transform.position = hit.point;
 			Vector3 tangent = Vector3.Cross(hit.normal, -transform.right);
