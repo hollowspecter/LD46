@@ -201,7 +201,7 @@ public class GameManager : MonoBehaviour
 		// Fade out
 		var fadeIn = fader.DOFade(1f, 1f);
 		yield return fadeIn.WaitForCompletion();
-		SceneManager.LoadScene(SceneManager.GetSceneAt(1).buildIndex + 1);
+		SceneManager.LoadScene(SceneManager.GetSceneAt(0).buildIndex + 1);
 #if UNITY_EDITOR
 		EditorApplication.ExitPlaymode();
 #endif
@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
 		// Fade out
 		var fadeIn = fader.DOFade(1f, 1f);
 		yield return fadeIn.WaitForCompletion();
-		SceneManager.LoadScene(SceneManager.GetSceneAt(1).buildIndex);
+		SceneManager.LoadScene(SceneManager.GetSceneAt(0).buildIndex);
 #if UNITY_EDITOR
 		EditorApplication.ExitPlaymode();
 #endif

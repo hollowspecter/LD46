@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2118,6 +2118,7 @@ GameObject:
   - component: {fileID: 140497326}
   - component: {fileID: 140497328}
   - component: {fileID: 140497327}
+  - component: {fileID: 140497329}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -2200,6 +2201,23 @@ MonoBehaviour:
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
+--- !u!114 &140497329
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140497324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 0.5
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!4 &142146962 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1643679251968773367, guid: d9cdd9e8ab7f38040885cd84234ce667,
@@ -10663,7 +10681,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616860925}
-  m_LocalRotation: {x: 0.08171871, y: 0.14997302, z: -0.012439316, w: 0.9852286}
+  m_LocalRotation: {x: 0.08171871, y: 0.149973, z: -0.012439316, w: 0.9852286}
   m_LocalPosition: {x: 6.4842243, y: 8.899998, z: -51.840622}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -19417,7 +19435,7 @@ PrefabInstance:
     - target: {fileID: 1972515905849034689, guid: 281d25981a98f014e99defe6e2f5e874,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.14997302
+      value: 0.149973
       objectReference: {fileID: 0}
     - target: {fileID: 1972515905849034689, guid: 281d25981a98f014e99defe6e2f5e874,
         type: 3}
