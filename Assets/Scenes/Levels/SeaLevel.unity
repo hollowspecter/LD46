@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -10681,7 +10681,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616860925}
-  m_LocalRotation: {x: 0.08171871, y: 0.149973, z: -0.012439316, w: 0.9852286}
+  m_LocalRotation: {x: 0.08171871, y: 0.149973, z: -0.012439315, w: 0.9852286}
   m_LocalPosition: {x: 6.4842243, y: 8.899998, z: -51.840622}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -19440,7 +19440,7 @@ PrefabInstance:
     - target: {fileID: 1972515905849034689, guid: 281d25981a98f014e99defe6e2f5e874,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.012439316
+      value: -0.012439315
       objectReference: {fileID: 0}
     - target: {fileID: 1972515905849034689, guid: 281d25981a98f014e99defe6e2f5e874,
         type: 3}
@@ -25764,37 +25764,53 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 357422169, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -39.090965
+      objectReference: {fileID: 0}
+    - target: {fileID: 357422169, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 13.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1854271640, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_Priority
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1854271640, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 1656280368}
+    - target: {fileID: 1854271640, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
+      propertyPath: m_LookAt
+      value: 
+      objectReference: {fileID: 1656280368}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.00022250833
+      value: -0.16433652
       objectReference: {fileID: 0}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.23459181
+      value: 0.0032906295
       objectReference: {fileID: 0}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.000922028
+      value: -0.9862012
       objectReference: {fileID: 0}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.01964651
+      value: -1.90608
       objectReference: {fileID: 0}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.38
+      value: 16.929998
       objectReference: {fileID: 0}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.999974
+      value: -48.824535
       objectReference: {fileID: 0}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.9720935
+      value: -0.0197474
       objectReference: {fileID: 0}
     - target: {fileID: 1664774646970655594, guid: 0732061673dab7a41b259a130d3a2fa0,
         type: 3}
@@ -27169,6 +27185,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1643679251968773367, guid: d9cdd9e8ab7f38040885cd84234ce667,
     type: 3}
   m_PrefabInstance: {fileID: 87448252}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1656280368 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1664774647184233131, guid: 0732061673dab7a41b259a130d3a2fa0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1590408911}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1663300619 stripped
 Transform:
