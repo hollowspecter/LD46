@@ -1,18 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CrashHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private Rigidbody parentRigidbody;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	[FMODUnity.EventRef]
+	[SerializeField]
+	protected string crashEvent = "";
+
+	public UnityEvent<float> onCrash;
+
+	private void Awake()
+	{
+		parentRigidbody = GetComponentInParent<Rigidbody>();
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		// Calculate my momentum
+		var momentum1 = parentRigidbody.mass * parentRigidbody.velocity;
+		var momentum2 = other.attachedRigidbody.mass * other.attachedRigidbody.velocity;
+		var diff = momentum1 - momentum2;
+		var impact = diff.magnitude;
+		onCrash?.Invoke(impact);
+	}
 }
