@@ -44,4 +44,5 @@ public class Danger_Car : Danger
 		Gizmos.color = Color.green;
 		Gizmos.DrawWireSphere(rigid.worldCenterOfMass, 0.2f);
 	}
+	
 }
