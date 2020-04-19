@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
 	protected string lightingScene = "";
 	[SerializeField]
 	protected Color fadingColor = Color.white;
+	[SerializeField]
+	protected bool makeBabyKinematicWhileTimeStop = true;
 	[Header("References")]
 	[SerializeField]
 	protected CinemachineVirtualCamera cutsceneCamera;
@@ -114,11 +116,6 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		gameFlowCoroutine = StartCoroutine(GameFlow());
-	}
-
-	private IEnumerator GameFlow()
-	{
 		/*
 		 * Setup level
 		 */
@@ -132,7 +129,11 @@ public class GameManager : MonoBehaviour
 		baby.babyCamera.Priority = 0;
 		Cursor.lockState = CursorLockMode.None;
 		Cursor.visible = true;
+		gameFlowCoroutine = StartCoroutine(GameFlow());
+	}
 
+	private IEnumerator GameFlow()
+	{
 		/*
 		 * Check for Lighting scene and additively load it
 		 */
@@ -172,8 +173,11 @@ public class GameManager : MonoBehaviour
 		var timescaleTweener = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, minTimeScale, timeStopDuration).SetEase(timeStopEase).SetUpdate(UpdateType.Normal, true);
 		DOTween.To(() => Time.fixedDeltaTime, x => Time.fixedDeltaTime = x, Time.fixedDeltaTime * minTimeScale, timeStopDuration).SetEase(timeStopEase).SetUpdate(UpdateType.Normal, true);
 		DOTween.To(() => bulletTimeVolume.weight, x => bulletTimeVolume.weight = x, 1f, timeStopDuration).SetEase(timeStopEase).SetUpdate(UpdateType.Normal, true);
-		foreach (var body in babyBodies)
-			body.isKinematic = true;
+		if (makeBabyKinematicWhileTimeStop)
+		{
+			foreach (var body in babyBodies)
+				body.isKinematic = true;
+		}
 		yield return timescaleTweener.WaitForCompletion();
 
 		/*
@@ -211,8 +215,11 @@ public class GameManager : MonoBehaviour
 			interactable.gameObject.tag = "Danger";
 		}
 		// make baby able to fly away
-		foreach (var body in babyBodies)
-			body.isKinematic = false;
+		if (makeBabyKinematicWhileTimeStop)
+		{
+			foreach (var body in babyBodies)
+				body.isKinematic = false;
+		}
 
 		yield return timescaleTweener.WaitForCompletion();
 

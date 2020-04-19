@@ -35,6 +35,17 @@ public class Baby : MonoBehaviour
 	{
 		if (other.tag == "Danger")
 		{
+			Debug.LogWarning(other.gameObject.name + " killed baby");
+			Die();
+		}
+
+	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (collision.collider.tag != "Baby")
+		{
+			Debug.LogWarning(collision.collider.gameObject.name + " killed baby");
 			Die();
 		}
 

@@ -28,12 +28,14 @@ public class Danger_Car : Danger
 		if (crashHandler == null)
 			crashHandler = GetComponentInChildren<CrashHandler>();
 
-		crashHandler.onCrash.AddListener(OnCrash);
+		if (crashHandler != null)
+			crashHandler.onCrash.AddListener(OnCrash);
 	}
 
 	private void OnDisable()
 	{
-		crashHandler.onCrash.RemoveListener(OnCrash);
+		if (crashHandler != null)
+			crashHandler.onCrash.RemoveListener(OnCrash);
 	}
 
 	protected override void StartDanger()
