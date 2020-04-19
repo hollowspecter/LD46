@@ -2,16 +2,18 @@
 
 public class PlayerManager : MonoBehaviour
 {
-    public static PlayerManager instance;
+	public static PlayerManager instance;
 
-    private void Awake() 
-    {
-        if (instance != null) 
-        { Destroy(gameObject); }
-        else
-        { 
-            instance = this; 
-            DontDestroyOnLoad(gameObject);
-        }
-    }
+	private void Awake()
+	{
+		if (instance != null)
+		{
+			Destroy(gameObject);
+		}
+		else
+		{
+			instance = this;
+			//DontDestroyOnLoad(gameObject);
+		}
+	}
 }
