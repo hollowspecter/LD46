@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Highway.unity
     guid: 533cc347a889c624f9a5bf363523afab
   - enabled: 1
+    path: Assets/Scenes/Levels/CarChase.unity
+    guid: cc08d71130ef6e24ba9a98b150e6edb3
+  - enabled: 1
     path: Assets/Scenes/LightingScenes/Lighting_Default.unity
     guid: f648931d93f143740b93caa5e830d3a5
   m_configObjects: {}

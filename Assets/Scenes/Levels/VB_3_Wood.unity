@@ -544,7 +544,7 @@ MonoBehaviour:
   m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 1
   m_FrequencyGain: 0.5
-  mNoiseOffsets: {x: 0, y: 0, z: 0}
+  mNoiseOffsets: {x: 687.7777, y: 428.67465, z: 161.39542}
 --- !u!1 &294830567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2234,7 +2234,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 972962845, guid: 281d25981a98f014e99defe6e2f5e874, type: 3}
       propertyPath: field of view
-      value: 54
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 1972515905849034689, guid: 281d25981a98f014e99defe6e2f5e874,
         type: 3}
@@ -3154,6 +3154,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 130099831, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
+      propertyPath: mNoiseOffsets.x
+      value: 58.199066
+      objectReference: {fileID: 0}
+    - target: {fileID: 130099831, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
+      propertyPath: mNoiseOffsets.y
+      value: -666.673
+      objectReference: {fileID: 0}
+    - target: {fileID: 130099831, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
+      propertyPath: mNoiseOffsets.z
+      value: 584.91394
+      objectReference: {fileID: 0}
     - target: {fileID: 357422169, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_FollowOffset.z
       value: -15.085374
@@ -3172,31 +3184,31 @@ PrefabInstance:
       objectReference: {fileID: 1490924019}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.10665107
+      value: -0.032426864
       objectReference: {fileID: 0}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.88
+      value: 6.5160513
       objectReference: {fileID: 0}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.24003804
+      value: 0.2280993
       objectReference: {fileID: 0}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.39177698
+      value: 0.13695961
       objectReference: {fileID: 0}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8817699
+      value: 0.96341133
       objectReference: {fileID: 0}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.291908
+      value: -3.4700105
       objectReference: {fileID: 0}
     - target: {fileID: 1854271641, guid: 0732061673dab7a41b259a130d3a2fa0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.056813
+      value: -12.13015
       objectReference: {fileID: 0}
     - target: {fileID: 1664774646970655594, guid: 0732061673dab7a41b259a130d3a2fa0,
         type: 3}
@@ -3357,34 +3369,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1734676306}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1832718211 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 357422166, guid: 0732061673dab7a41b259a130d3a2fa0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1590408911}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1832718214
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832718211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 7.76, z: -13.196785}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
-  m_AngularDampingMode: 0
-  m_PitchDamping: 0
-  m_YawDamping: 0
-  m_RollDamping: 0
-  m_AngularDamping: 0
 --- !u!1001 &1858381274
 PrefabInstance:
   m_ObjectHideFlags: 0
