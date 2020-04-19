@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 3460153694249406378}
   - component: {fileID: 3460153694247376852}
   - component: {fileID: 3460153694247376853}
+  - component: {fileID: 1253582480166295967}
   m_Layer: 0
   m_Name: Danger_Cannon
   m_TagString: Untagged
@@ -211,6 +212,43 @@ MonoBehaviour:
   spawnPosition: {fileID: 9193650751799771991}
   pSystem: {fileID: 3460153694684675969}
   cannonPower: 250
+  onShot:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1253582480166295967}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1253582480166295967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3460153694247407978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Canon/CannonballShot
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 20
+  OverrideMaxDistance: 100
 --- !u!1 &3460153694684675970
 GameObject:
   m_ObjectHideFlags: 0
