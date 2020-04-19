@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 1854271640}
   m_Layer: 0
   m_Name: Baby Cam
-  m_TagString: Untagged
+  m_TagString: Baby
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,7 +136,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854271639}
-  m_LocalRotation: {x: -0.00016366265, y: -0.97209376, z: 0.23459187, w: -0.00067799294}
+  m_LocalRotation: {x: -0.00016366264, y: -0.97209376, z: 0.23459187, w: -0.00067799294}
   m_LocalPosition: {x: 0.027682332, y: 8.38, z: 15.999985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 7735114072631419469}
   m_Layer: 0
   m_Name: Pillow
-  m_TagString: Untagged
+  m_TagString: Baby
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 2406667113735575480}
   m_Layer: 0
   m_Name: GameObject (2)
-  m_TagString: Untagged
+  m_TagString: Baby
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 9138201738909036966}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Baby
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 6661440704441009916}
   m_Layer: 0
   m_Name: GameObject (3)
-  m_TagString: Untagged
+  m_TagString: Baby
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -714,7 +714,7 @@ GameObject:
   - component: {fileID: 8448613334100356502}
   m_Layer: 0
   m_Name: GameObject (1)
-  m_TagString: Untagged
+  m_TagString: Baby
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -828,6 +828,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: baby
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: aeffdba5c99ffa146a47d396b28e84eb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Baby
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: aeffdba5c99ffa146a47d396b28e84eb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2792684772491959845, guid: aeffdba5c99ffa146a47d396b28e84eb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6041419327770620553, guid: aeffdba5c99ffa146a47d396b28e84eb,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -929,6 +944,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: overhead
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: e25b1b40f09a3fa4fac32961005e6499,
+        type: 3}
+      propertyPath: m_TagString
+      value: Baby
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: e25b1b40f09a3fa4fac32961005e6499,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e25b1b40f09a3fa4fac32961005e6499, type: 3}
 --- !u!1001 &8370171850012072545
@@ -943,11 +968,31 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 47921977f442e9349a9fa6722ae4f876, type: 2}
+    - target: {fileID: -7105893511418037779, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Baby
+      objectReference: {fileID: 0}
+    - target: {fileID: -7105893511418037779, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -6020967812362280255, guid: 23a271ef8dd02f943a723ec23475850b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b039cb8532e4b744bbaf6e730ccf8bf6, type: 2}
+    - target: {fileID: -5820909350622007647, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Baby
+      objectReference: {fileID: 0}
+    - target: {fileID: -5820909350622007647, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -5650195715918005055, guid: 23a271ef8dd02f943a723ec23475850b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1028,16 +1073,66 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b039cb8532e4b744bbaf6e730ccf8bf6, type: 2}
+    - target: {fileID: -1327565835736766579, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Baby
+      objectReference: {fileID: 0}
+    - target: {fileID: -1327565835736766579, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1260303568074166598, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Baby
+      objectReference: {fileID: 0}
+    - target: {fileID: -1260303568074166598, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 23a271ef8dd02f943a723ec23475850b,
         type: 3}
       propertyPath: m_Name
       value: Kinderwagen
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Baby
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3498233192160276394, guid: 23a271ef8dd02f943a723ec23475850b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b039cb8532e4b744bbaf6e730ccf8bf6, type: 2}
+    - target: {fileID: 3953895628155425136, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Baby
+      objectReference: {fileID: 0}
+    - target: {fileID: 3953895628155425136, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042991796335598324, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Baby
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042991796335598324, guid: 23a271ef8dd02f943a723ec23475850b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8405511635112630968, guid: 23a271ef8dd02f943a723ec23475850b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
