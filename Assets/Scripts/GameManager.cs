@@ -114,11 +114,6 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		gameFlowCoroutine = StartCoroutine(GameFlow());
-	}
-
-	private IEnumerator GameFlow()
-	{
 		/*
 		 * Setup level
 		 */
@@ -132,7 +127,11 @@ public class GameManager : MonoBehaviour
 		baby.babyCamera.Priority = 0;
 		Cursor.lockState = CursorLockMode.None;
 		Cursor.visible = true;
+		gameFlowCoroutine = StartCoroutine(GameFlow());
+	}
 
+	private IEnumerator GameFlow()
+	{
 		/*
 		 * Check for Lighting scene and additively load it
 		 */
