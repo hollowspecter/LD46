@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Baby : MonoBehaviour
 {
 	bool isDead = false;
 
+	public CinemachineVirtualCamera babyCamera;
 	public bool IsDead => isDead;
 
 	// Start is called before the first frame update
