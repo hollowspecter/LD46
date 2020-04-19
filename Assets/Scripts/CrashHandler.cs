@@ -11,7 +11,7 @@ public class CrashHandler : MonoBehaviour
 	[SerializeField]
 	protected string crashEvent = "";
 
-	public UnityEvent<float> onCrash;
+	public UnityFloatEvent onCrash;
 
 	private void Awake()
 	{

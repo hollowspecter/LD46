@@ -21,11 +21,13 @@ public class Danger_Car : Danger
 		rigid = GetComponent<Rigidbody>();
 		rigid.centerOfMass = centerOfMass;
 		grounded = GetComponentInChildren<GroundedChecker>();
-		crashHandler = GetComponentInChildren<CrashHandler>();
 	}
 
 	private void OnEnable()
 	{
+		if (crashHandler == null)
+			crashHandler = GetComponentInChildren<CrashHandler>();
+
 		crashHandler.onCrash.AddListener(OnCrash);
 	}
 
