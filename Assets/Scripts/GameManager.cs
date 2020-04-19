@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
 		if (!PlayerPrefs.HasKey(CurrentLevelKey))
 			PlayerPrefs.SetInt(CurrentLevelKey, 0);
 
-		int currentLevel = Mathf.Max(SceneManager.GetActiveScene().buildIndex - 2, PlayerPrefs.GetInt(CurrentLevelKey));
+		int currentLevel = Mathf.Max(SceneManager.GetActiveScene().buildIndex - 1, PlayerPrefs.GetInt(CurrentLevelKey));
 		PlayerPrefs.SetInt(CurrentLevelKey, currentLevel);
 
 		// Setup the Buttons
@@ -130,6 +130,8 @@ public class GameManager : MonoBehaviour
 		bulletTimeVolume.weight = 0f;
 		fader.color = fadingColor;
 		baby.babyCamera.Priority = 0;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 
 		/*
 		 * Check for Lighting scene and additively load it
