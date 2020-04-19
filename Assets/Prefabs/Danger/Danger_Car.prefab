@@ -57,6 +57,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b60b5bb855fbcd4d8a599de3d5366e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crashEvent: event:/CarCrash
+  onCrash:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1147230153600454783
 GameObject:
   m_ObjectHideFlags: 0
@@ -5269,6 +5273,10 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   forwardSpeed: 30
   maxSpeed: 30
+  breakOnImpact: 40000
+  onBreak:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7233231318387197365
 MonoBehaviour:
   m_ObjectHideFlags: 0
