@@ -19,7 +19,8 @@ public class CollisionChecker : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.CompareTag("Danger") ||
-			other.CompareTag("Player"))
+			other.CompareTag("Player") ||
+			other.gameObject.isStatic)
 		{
 			if (!IsColliding)
 				onCollidingEnter?.Invoke();
@@ -33,7 +34,8 @@ public class CollisionChecker : MonoBehaviour
 	private void OnTriggerExit(Collider other)
 	{
 		if (other.CompareTag("Danger") ||
-			other.CompareTag("Player"))
+			other.CompareTag("Player") ||
+			other.gameObject.isStatic)
 		{
 			collidingCount--;
 
