@@ -7,10 +7,12 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEditor;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance = null;
+	private const string CurrentLevelKey = "CurrentLevel";
 
 	[Header("Settings")]
 	[SerializeField]
@@ -46,6 +48,10 @@ public class GameManager : MonoBehaviour
 	protected Volume bulletTimeVolume;
 	[SerializeField]
 	protected Image fader;
+	[SerializeField]
+	protected GameObject levelButtonPrefab;
+	[SerializeField]
+	protected Transform levelButtonParent;
 
 	private float originalFixedDelta;
 	private Baby baby;
@@ -54,6 +60,7 @@ public class GameManager : MonoBehaviour
 	private CinemachineBrain brain;
 	private Interactable[] interactables;
 	private LayerMask dangerLayer;
+	private Coroutine gameFlowCoroutine;
 
 	public bool DisableInput
 	{
@@ -83,11 +90,31 @@ public class GameManager : MonoBehaviour
 		brain = FindObjectOfType<CinemachineBrain>();
 		interactables = FindObjectsOfType<Interactable>();
 		dangerLayer = LayerMask.NameToLayer("Danger");
+
+		// Load Player Prefs
+		if (!PlayerPrefs.HasKey(CurrentLevelKey))
+			PlayerPrefs.SetInt(CurrentLevelKey, 0);
+
+		int currentLevel = Mathf.Max(SceneManager.GetActiveScene().buildIndex - 2, PlayerPrefs.GetInt(CurrentLevelKey));
+		PlayerPrefs.SetInt(CurrentLevelKey, currentLevel);
+
+		// Setup the Buttons
+		var levelCount = SceneManager.sceneCountInBuildSettings - 2;
+		for (int i = 0; i < levelCount; ++i)
+		{
+			var levelButton = Instantiate(levelButtonPrefab, levelButtonParent);
+			levelButton.GetComponentInChildren<TextMeshProUGUI>().text = (i + 1) + "";
+			levelButton.GetComponent<Button>().interactable = i <= currentLevel;
+			levelButton.GetComponent<Button>().onClick.AddListener(() =>
+			{
+				LoadLevel(levelButton);
+			});
+		}
 	}
 
 	void Start()
 	{
-		StartCoroutine(GameFlow());
+		gameFlowCoroutine = StartCoroutine(GameFlow());
 	}
 
 	private IEnumerator GameFlow()
@@ -102,22 +129,18 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 0f;
 		bulletTimeVolume.weight = 0f;
 		fader.color = fadingColor;
+		baby.babyCamera.Priority = 0;
 
 		/*
 		 * Check for Lighting scene and additively load it
 		 */
-
-		if (!string.IsNullOrWhiteSpace(lightingScene))
-		{
-			Debug.Log("Load lighting scene");
-			yield return SceneManager.LoadSceneAsync(lightingScene, LoadSceneMode.Additive);
-			SceneManager.SetActiveScene(SceneManager.GetSceneByName(lightingScene));
-		}
+		Debug.Log("Load lighting scene");
+		yield return SceneManager.LoadSceneAsync(lightingScene, LoadSceneMode.Additive);
+		SceneManager.SetActiveScene(SceneManager.GetSceneByName(lightingScene));
 
 		/*
 		 * Fade In
 		 */
-
 		Debug.Log("Fade out!");
 		var faderOut = fader.DOFade(0f, 1f).SetUpdate(UpdateType.Normal, true);
 		yield return faderOut.WaitForCompletion();
@@ -125,9 +148,11 @@ public class GameManager : MonoBehaviour
 		/*
 		 * Wait for Input to Start
 		 */
-
 		Debug.Log("Waiting for Input");
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+		// Hide cursor
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 
 		/*
 		 * Start cutscene
@@ -164,6 +189,12 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSecondsRealtime(SlowedTimeDuration);
 
 		/*
+		 * Turn on Baby Camera
+		 */
+		baby.babyCamera.Priority = 200;
+		yield return new WaitForSecondsRealtime(brain.m_DefaultBlend.m_Time);
+
+		/*
 		 * Reset the time scale
 		 */
 		Debug.Log("Time's up! Let's play");
@@ -180,6 +211,7 @@ public class GameManager : MonoBehaviour
 		// make baby able to fly away
 		foreach (var body in babyBodies)
 			body.isKinematic = false;
+
 		yield return timescaleTweener.WaitForCompletion();
 
 		yield return new WaitForSeconds(checkWinConditionAfterDuration);
@@ -196,10 +228,7 @@ public class GameManager : MonoBehaviour
 		Debug.Log("You win!");
 		winUI.SetActive(true);
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-		// Fade out
-		var fadeIn = fader.DOFade(1f, 1f);
-		yield return fadeIn.WaitForCompletion();
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+		yield return StartCoroutine(ELoadLevel(SceneManager.GetSceneAt(0).buildIndex + 1));
 #if UNITY_EDITOR
 		EditorApplication.ExitPlaymode();
 #endif
@@ -210,12 +239,32 @@ public class GameManager : MonoBehaviour
 		Debug.Log("You lose!");
 		loseUI.SetActive(true);
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-		// Fade out
-		var fadeIn = fader.DOFade(1f, 1f);
-		yield return fadeIn.WaitForCompletion();
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		yield return StartCoroutine(ELoadLevel(SceneManager.GetSceneAt(0).buildIndex));
 #if UNITY_EDITOR
 		EditorApplication.ExitPlaymode();
 #endif
+	}
+
+	private void LoadLevel(GameObject buttonObject)
+	{
+		int level = int.Parse(buttonObject.GetComponentInChildren<TextMeshProUGUI>().text);
+		if (level + 1 == SceneManager.GetSceneAt(0).buildIndex)
+			return;
+		StopCoroutine(gameFlowCoroutine);
+		StartCoroutine(ELoadLevel(level + 1));
+	}
+
+	private IEnumerator ELoadLevel(int buildIndex)
+	{
+		Debug.Log($"Switching Levels! Level {buildIndex}");
+		var fadeIn = fader.DOFade(1f, 1f).SetUpdate(UpdateType.Normal, true);
+		yield return fadeIn.WaitForCompletion();
+		SceneManager.LoadScene(buildIndex);
+	}
+
+	[ContextMenu("Reset PlayerPrefs")]
+	private void ResetPlayerPrefs()
+	{
+		PlayerPrefs.DeleteAll();
 	}
 }

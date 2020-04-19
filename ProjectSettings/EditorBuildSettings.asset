@@ -6,12 +6,27 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: aaf1caba5f08ee04dbff10a9a8ec6081
+  - enabled: 1
+    path: Assets/Scenes/LightingScenes/Lighting_Default.unity
+    guid: f648931d93f143740b93caa5e830d3a5
+  - enabled: 1
     path: Assets/Scenes/Levels/VB_1.unity
     guid: 1049f583d8da02e4ca5bc6b07278d183
   - enabled: 1
     path: Assets/Scenes/Levels/MainLevel_MV.unity
     guid: 8522cf0c8a3a23443b6e460cf4a9720d
   - enabled: 1
-    path: Assets/Scenes/LightingScenes/Lighting_Default.unity
-    guid: f648931d93f143740b93caa5e830d3a5
+    path: Assets/Scenes/Levels/VB_2_Stairs.unity
+    guid: 7d43cdd94d57246438c4ddb40928988a
+  - enabled: 1
+    path: Assets/Scenes/Levels/SeaLevel.unity
+    guid: 82645cc654cf2c14083473d27600476e
+  - enabled: 1
+    path: Assets/Scenes/Levels/MainLevel_MV 1.unity
+    guid: 6fd8c5f1d5ca3e445af0bcb50ea2b233
+  - enabled: 1
+    path: Assets/Scenes/Levels/Highway.unity
+    guid: 533cc347a889c624f9a5bf363523afab
   m_configObjects: {}

@@ -20,9 +20,6 @@ public class PlayerInputHandler : MonoBehaviour
 	{
 		m_PlayerCharacterController = GetComponent<PlayerCharacterController>();
 		DebugUtility.HandleErrorIfNullGetComponent<PlayerCharacterController, PlayerInputHandler>(m_PlayerCharacterController, this, gameObject);
-
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
 	}
 
 	private void LateUpdate()
