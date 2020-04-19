@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: aaf1caba5f08ee04dbff10a9a8ec6081
+  - enabled: 1
+    path: Assets/Scenes/LightingScenes/Lighting_Default.unity
+    guid: f648931d93f143740b93caa5e830d3a5
+  - enabled: 1
     path: Assets/Scenes/Levels/VB_1.unity
     guid: 1049f583d8da02e4ca5bc6b07278d183
   - enabled: 1
@@ -23,7 +29,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Highway.unity
     guid: 533cc347a889c624f9a5bf363523afab
-  - enabled: 1
-    path: Assets/Scenes/LightingScenes/Lighting_Default.unity
-    guid: f648931d93f143740b93caa5e830d3a5
   m_configObjects: {}

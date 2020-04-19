@@ -7,10 +7,12 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEditor;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance = null;
+	private const string CurrentLevelKey = "CurrentLevel";
 
 	[Header("Settings")]
 	[SerializeField]
@@ -46,6 +48,10 @@ public class GameManager : MonoBehaviour
 	protected Volume bulletTimeVolume;
 	[SerializeField]
 	protected Image fader;
+	[SerializeField]
+	protected GameObject levelButtonPrefab;
+	[SerializeField]
+	protected Transform levelButtonParent;
 
 	private float originalFixedDelta;
 	private Baby baby;
@@ -54,6 +60,7 @@ public class GameManager : MonoBehaviour
 	private CinemachineBrain brain;
 	private Interactable[] interactables;
 	private LayerMask dangerLayer;
+	private Coroutine gameFlowCoroutine;
 
 	public bool DisableInput
 	{
@@ -83,11 +90,31 @@ public class GameManager : MonoBehaviour
 		brain = FindObjectOfType<CinemachineBrain>();
 		interactables = FindObjectsOfType<Interactable>();
 		dangerLayer = LayerMask.NameToLayer("Danger");
+
+		// Load Player Prefs
+		if (!PlayerPrefs.HasKey(CurrentLevelKey))
+			PlayerPrefs.SetInt(CurrentLevelKey, 0);
+
+		int currentLevel = Mathf.Max(SceneManager.GetActiveScene().buildIndex - 2, PlayerPrefs.GetInt(CurrentLevelKey));
+		PlayerPrefs.SetInt(CurrentLevelKey, currentLevel);
+
+		// Setup the Buttons
+		var levelCount = SceneManager.sceneCountInBuildSettings - 2;
+		for (int i = 0; i < levelCount; ++i)
+		{
+			var levelButton = Instantiate(levelButtonPrefab, levelButtonParent);
+			levelButton.GetComponentInChildren<TextMeshProUGUI>().text = (i + 1) + "";
+			levelButton.GetComponent<Button>().interactable = i <= currentLevel;
+			levelButton.GetComponent<Button>().onClick.AddListener(() =>
+			{
+				LoadLevel(levelButton);
+			});
+		}
 	}
 
 	void Start()
 	{
-		StartCoroutine(GameFlow());
+		gameFlowCoroutine = StartCoroutine(GameFlow());
 	}
 
 	private IEnumerator GameFlow()
@@ -123,6 +150,9 @@ public class GameManager : MonoBehaviour
 		 */
 		Debug.Log("Waiting for Input");
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+		// Hide cursor
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 
 		/*
 		 * Start cutscene
@@ -198,10 +228,7 @@ public class GameManager : MonoBehaviour
 		Debug.Log("You win!");
 		winUI.SetActive(true);
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-		// Fade out
-		var fadeIn = fader.DOFade(1f, 1f);
-		yield return fadeIn.WaitForCompletion();
-		SceneManager.LoadScene(SceneManager.GetSceneAt(0).buildIndex + 1);
+		yield return StartCoroutine(ELoadLevel(SceneManager.GetSceneAt(0).buildIndex + 1));
 #if UNITY_EDITOR
 		EditorApplication.ExitPlaymode();
 #endif
@@ -212,12 +239,32 @@ public class GameManager : MonoBehaviour
 		Debug.Log("You lose!");
 		loseUI.SetActive(true);
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-		// Fade out
-		var fadeIn = fader.DOFade(1f, 1f);
-		yield return fadeIn.WaitForCompletion();
-		SceneManager.LoadScene(SceneManager.GetSceneAt(0).buildIndex);
+		yield return StartCoroutine(ELoadLevel(SceneManager.GetSceneAt(0).buildIndex));
 #if UNITY_EDITOR
 		EditorApplication.ExitPlaymode();
 #endif
+	}
+
+	private void LoadLevel(GameObject buttonObject)
+	{
+		int level = int.Parse(buttonObject.GetComponentInChildren<TextMeshProUGUI>().text);
+		if (level + 1 == SceneManager.GetSceneAt(0).buildIndex)
+			return;
+		StopCoroutine(gameFlowCoroutine);
+		StartCoroutine(ELoadLevel(level + 1));
+	}
+
+	private IEnumerator ELoadLevel(int buildIndex)
+	{
+		Debug.Log($"Switching Levels! Level {buildIndex}");
+		var fadeIn = fader.DOFade(1f, 1f).SetUpdate(UpdateType.Normal, true);
+		yield return fadeIn.WaitForCompletion();
+		SceneManager.LoadScene(buildIndex);
+	}
+
+	[ContextMenu("Reset PlayerPrefs")]
+	private void ResetPlayerPrefs()
+	{
+		PlayerPrefs.DeleteAll();
 	}
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class CameraFOVUpdate : MonoBehaviour
 {
-	private Camera camera;
+	private new Camera camera;
 	private Camera mainCamera;
 
 	// Start is called before the first frame update
