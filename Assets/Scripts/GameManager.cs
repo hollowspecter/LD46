@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
 		if (!PlayerPrefs.HasKey(CurrentLevelKey))
 			PlayerPrefs.SetInt(CurrentLevelKey, 0);
 
-		int currentLevel = Mathf.Max(SceneManager.GetActiveScene().buildIndex - 1, PlayerPrefs.GetInt(CurrentLevelKey));
+		int currentLevel = Mathf.Max(SceneManager.GetActiveScene().buildIndex, PlayerPrefs.GetInt(CurrentLevelKey));
 		PlayerPrefs.SetInt(CurrentLevelKey, currentLevel);
 
 		// Setup the Buttons
