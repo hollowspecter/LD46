@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8833630175085894568}
   - component: {fileID: 8833630175083725770}
   - component: {fileID: 8833630175083725774}
-  - component: {fileID: 5373837400516413002}
   m_Layer: 9
   m_Name: Cannon_Ammo
   m_TagString: Danger
@@ -113,21 +112,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.70000017
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5373837400516413002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8833630175083627880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f435c771b8ab0f64dab6c83c610024de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionPower: 2000
-  explosionRadius: 4
-  explosionParticles: {fileID: 8833630174042970418}
 --- !u!1001 &4952436039619061389
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -205,12 +189,6 @@ PrefabInstance:
 --- !u!4 &8833630174042970416 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4480463162454769597, guid: 373cc59b1bc67de469d52b38aca4fd24,
-    type: 3}
-  m_PrefabInstance: {fileID: 4952436039619061389}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8833630174042970418 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4480463162454769599, guid: 373cc59b1bc67de469d52b38aca4fd24,
     type: 3}
   m_PrefabInstance: {fileID: 4952436039619061389}
   m_PrefabAsset: {fileID: 0}
