@@ -31,7 +31,13 @@ public class ExplosiveDanger : MonoBehaviour
             if(hit.gameObject != gameObject)
             {
                 if (hit.gameObject.tag == "Baby")
-                    hit.GetComponentInParent<Baby>().Die();
+                {
+                    Baby b = hit.GetComponent<Baby>();
+                    if(b)
+                    {
+                        b.Die();
+                    }
+                }
                 Rigidbody rb = (hit.GetComponentInParent<Rigidbody>());
                 if(rb!= null)
                 {
