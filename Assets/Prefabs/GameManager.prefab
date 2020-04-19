@@ -2096,6 +2096,7 @@ MonoBehaviour:
   slowedTimeDuration: 10
   checkWinConditionAfterDuration: 5
   lightingScene: Lighting_Default
+  fadingColor: {r: 1, g: 1, b: 1, a: 1}
   cutsceneCamera: {fileID: 0}
   bulletTimeSnapshot: snapshot:/BulletTime
   startUI: {fileID: 1987009146}
