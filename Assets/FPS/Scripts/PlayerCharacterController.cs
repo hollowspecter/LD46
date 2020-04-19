@@ -67,6 +67,8 @@ public class PlayerCharacterController : MonoBehaviour
 
 	public UnityAction<bool> onStanceChanged;
 
+	public Animator animator;
+
 	public Vector3 characterVelocity
 	{
 		get; set;
@@ -266,6 +268,11 @@ public class PlayerCharacterController : MonoBehaviour
 
 				// keep track of distance traveled for footsteps sound
 				m_footstepDistanceCounter += characterVelocity.magnitude * Time.unscaledDeltaTime;
+				if(animator!= null)
+				{
+					animator.SetFloat("Speed", characterVelocity.magnitude);
+					animator.SetBool("Grounded", isGrounded);
+				}
 			}
 			// handle air movement
 			else
