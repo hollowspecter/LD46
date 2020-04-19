@@ -107,18 +107,13 @@ public class GameManager : MonoBehaviour
 		/*
 		 * Check for Lighting scene and additively load it
 		 */
-
-		if (!string.IsNullOrWhiteSpace(lightingScene))
-		{
-			Debug.Log("Load lighting scene");
-			yield return SceneManager.LoadSceneAsync(lightingScene, LoadSceneMode.Additive);
-			SceneManager.SetActiveScene(SceneManager.GetSceneByName(lightingScene));
-		}
+		Debug.Log("Load lighting scene");
+		yield return SceneManager.LoadSceneAsync(lightingScene, LoadSceneMode.Additive);
+		SceneManager.SetActiveScene(SceneManager.GetSceneByName(lightingScene));
 
 		/*
 		 * Fade In
 		 */
-
 		Debug.Log("Fade out!");
 		var faderOut = fader.DOFade(0f, 1f).SetUpdate(UpdateType.Normal, true);
 		yield return faderOut.WaitForCompletion();
@@ -126,7 +121,6 @@ public class GameManager : MonoBehaviour
 		/*
 		 * Wait for Input to Start
 		 */
-
 		Debug.Log("Waiting for Input");
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
@@ -207,7 +201,7 @@ public class GameManager : MonoBehaviour
 		// Fade out
 		var fadeIn = fader.DOFade(1f, 1f);
 		yield return fadeIn.WaitForCompletion();
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+		SceneManager.LoadScene(SceneManager.GetSceneAt(1).buildIndex + 1);
 #if UNITY_EDITOR
 		EditorApplication.ExitPlaymode();
 #endif
@@ -221,7 +215,7 @@ public class GameManager : MonoBehaviour
 		// Fade out
 		var fadeIn = fader.DOFade(1f, 1f);
 		yield return fadeIn.WaitForCompletion();
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		SceneManager.LoadScene(SceneManager.GetSceneAt(1).buildIndex);
 #if UNITY_EDITOR
 		EditorApplication.ExitPlaymode();
 #endif
