@@ -108,7 +108,7 @@
 			<value>20000</value>
 		</property>
 		<property name="length">
-			<value>749999</value>
+			<value>80000</value>
 		</property>
 		<relationship name="modulators">
 			<destination>{120ef372-c47e-4ad5-ae00-0428a1b90369}</destination>
@@ -179,7 +179,7 @@
 		</relationship>
 		<relationship name="automationPoints">
 			<destination>{c2fb705a-02b4-4c9d-86ed-5a38f85856c2}</destination>
-			<destination>{bc2eab22-52dd-499a-8d9d-499d471e0571}</destination>
+			<destination>{9a5b2080-e144-420d-80f1-f18306bdcd1d}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{e7e121f4-e709-453a-a56a-f34933b98a8b}" />
@@ -191,12 +191,12 @@
 			<value>-16</value>
 		</property>
 	</object>
-	<object class="AutomationPoint" id="{bc2eab22-52dd-499a-8d9d-499d471e0571}">
+	<object class="AutomationPoint" id="{9a5b2080-e144-420d-80f1-f18306bdcd1d}">
 		<property name="position">
-			<value>400000</value>
+			<value>100000</value>
 		</property>
 		<property name="value">
-			<value>0</value>
+			<value>-12</value>
 		</property>
 	</object>
 </objects>
