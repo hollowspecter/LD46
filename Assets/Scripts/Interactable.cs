@@ -27,7 +27,7 @@ public class Interactable : MonoBehaviour
 	protected PickupIndicator pickupIndicator;
 
 	public State CurrentState => state;
-	public bool IsCollidingWithDanger => collisionChecker.IsCollidingWithDanger;
+	public bool IsColliding => collisionChecker.IsColliding;
 
 	public Material validHoloMaterial;
 	public Material invalidHoloMaterial;
@@ -54,15 +54,15 @@ public class Interactable : MonoBehaviour
 
 	private void OnEnable()
 	{
-		collisionChecker.onCollidingWithDangerEnter.AddListener(OnCollidingWithDangerEnter);
-		collisionChecker.onCollidingWithDangerExit.AddListener(OnCollidingWithDangerExit);
+		collisionChecker.onCollidingEnter.AddListener(OnCollidingEnter);
+		collisionChecker.onCollidingExit.AddListener(OnCollidingExit);
 		pickupIndicator?.enableIndicator();
 	}
 
 	private void OnDisable()
 	{
-		collisionChecker.onCollidingWithDangerEnter.RemoveListener(OnCollidingWithDangerEnter);
-		collisionChecker.onCollidingWithDangerExit.RemoveListener(OnCollidingWithDangerExit);
+		collisionChecker.onCollidingEnter.RemoveListener(OnCollidingEnter);
+		collisionChecker.onCollidingExit.RemoveListener(OnCollidingExit);
 		pickupIndicator?.disableIndicator();
 	}
 
@@ -131,7 +131,7 @@ public class Interactable : MonoBehaviour
 
 	}
 
-	public void OnCollidingWithDangerEnter()
+	public void OnCollidingEnter()
 	{
 		if (CurrentState == State.Holding)
 		{
@@ -142,7 +142,7 @@ public class Interactable : MonoBehaviour
 		}
 	}
 
-	public void OnCollidingWithDangerExit()
+	public void OnCollidingExit()
 	{
 		if (CurrentState == State.Holding)
 		{

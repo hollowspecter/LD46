@@ -53,7 +53,7 @@ public class PickupAbility : MonoBehaviour
 				PickupItem();
 			}
 			else if (currentInteractable?.CurrentState == Interactable.State.Holding &&
-				currentInteractable?.IsCollidingWithDanger == false)
+				currentInteractable?.IsColliding == false)
 			{
 				ReleaseItem();
 			}

@@ -5,40 +5,42 @@ using UnityEngine.Events;
 
 public class CollisionChecker : MonoBehaviour
 {
-	private int dangerCount = 0;
+	private int collidingCount = 0;
 
-	public bool isCollidingWithDanger = false; // for debug
+	public bool isColliding = false; // for debug
 
 	[HideInInspector]
-	public UnityEvent onCollidingWithDangerEnter;
+	public UnityEvent onCollidingEnter;
 	[HideInInspector]
-	public UnityEvent onCollidingWithDangerExit;
+	public UnityEvent onCollidingExit;
 
-	public bool IsCollidingWithDanger => dangerCount > 0;
+	public bool IsColliding => collidingCount > 0;
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("Danger"))
+		if (other.CompareTag("Danger") ||
+			other.CompareTag("Player"))
 		{
-			if (!IsCollidingWithDanger)
-				onCollidingWithDangerEnter?.Invoke();
+			if (!IsColliding)
+				onCollidingEnter?.Invoke();
 
-			dangerCount++;
+			collidingCount++;
 
-			isCollidingWithDanger = IsCollidingWithDanger; // for debug
+			isColliding = IsColliding; // for debug
 		}
 	}
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (other.CompareTag("Danger"))
+		if (other.CompareTag("Danger") ||
+			other.CompareTag("Player"))
 		{
-			dangerCount--;
+			collidingCount--;
 
-			if (!IsCollidingWithDanger)
-				onCollidingWithDangerExit?.Invoke();
+			if (!IsColliding)
+				onCollidingExit?.Invoke();
 
-			isCollidingWithDanger = IsCollidingWithDanger; // for debug
+			isColliding = IsColliding; // for debug
 		}
 	}
 }
