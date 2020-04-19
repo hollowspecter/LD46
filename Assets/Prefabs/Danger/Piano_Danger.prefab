@@ -173,17 +173,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: d9c56d9988706914196ac31b8d86be06,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 39.515003
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: d9c56d9988706914196ac31b8d86be06,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -143.669
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: d9c56d9988706914196ac31b8d86be06,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 6.8370004
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: d9c56d9988706914196ac31b8d86be06,
         type: 3}
@@ -194,6 +194,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UprightPiano
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d9c56d9988706914196ac31b8d86be06,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d9c56d9988706914196ac31b8d86be06,
+        type: 3}
+      propertyPath: m_TagString
+      value: Danger
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9c56d9988706914196ac31b8d86be06, type: 3}
