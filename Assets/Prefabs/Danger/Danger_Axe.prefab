@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2064708665}
   - component: {fileID: 2064708664}
   - component: {fileID: 2064708663}
+  - component: {fileID: 7318633023674955923}
   m_Layer: 9
   m_Name: StickyHead
   m_TagString: Danger
@@ -100,6 +101,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownRigid: {fileID: 5167063715670540446}
+  onStick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4223692844368946095}
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7318633023674955923}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7318633023674955923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064708661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/AxeHit
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1288143812501851225
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,6 +382,7 @@ GameObject:
   - component: {fileID: 1562899605466482534}
   - component: {fileID: 5167063715670540446}
   - component: {fileID: 5104508937995920700}
+  - component: {fileID: 4223692844368946095}
   m_Layer: 9
   m_Name: Danger_Axe
   m_TagString: Danger
@@ -386,6 +436,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   throwSpeed: 110
+--- !u!114 &4223692844368946095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2588392423348204917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/FlyingAxe
+  PlayEvent: 1
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 5
+  OverrideMaxDistance: 30
 --- !u!1 &4483246097497745955
 GameObject:
   m_ObjectHideFlags: 0
