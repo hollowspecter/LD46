@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 0f;
 		bulletTimeVolume.weight = 0f;
 		fader.color = fadingColor;
+		baby.babyCamera.Priority = 0;
 
 		/*
 		 * Check for Lighting scene and additively load it
@@ -164,6 +165,12 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSecondsRealtime(SlowedTimeDuration);
 
 		/*
+		 * Turn on Baby Camera
+		 */
+		baby.babyCamera.Priority = 200;
+		yield return new WaitForSecondsRealtime(brain.m_DefaultBlend.m_Time);
+
+		/*
 		 * Reset the time scale
 		 */
 		Debug.Log("Time's up! Let's play");
@@ -180,6 +187,7 @@ public class GameManager : MonoBehaviour
 		// make baby able to fly away
 		foreach (var body in babyBodies)
 			body.isKinematic = false;
+
 		yield return timescaleTweener.WaitForCompletion();
 
 		yield return new WaitForSeconds(checkWinConditionAfterDuration);
