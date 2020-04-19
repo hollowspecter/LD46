@@ -71,6 +71,7 @@ public class Danger_Car : Danger
 			Debug.Log($"Car breaks with impact {impact}");
 			onBreak?.Invoke();
 			forwardSpeed = 0f;
+			GetComponent<FMODUnity.StudioEventEmitter>().Stop();
 		}
 	}
 

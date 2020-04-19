@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b60b5bb855fbcd4d8a599de3d5366e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crashEvent: 
+  crashEvent: event:/CarCrash
   onCrash:
     m_PersistentCalls:
       m_Calls: []
@@ -5273,7 +5273,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: 0, z: 0}
   forwardSpeed: 30
   maxSpeed: 30
-  breakOnImpact: 300000
+  breakOnImpact: 40000
   onBreak:
     m_PersistentCalls:
       m_Calls: []

@@ -49,6 +49,7 @@ public class Interactable : MonoBehaviour
 	void Start()
 	{
 		GenerateHoloMaterialArrays();
+		pickupIndicator?.disableIndicator();
 	}
 
 
@@ -56,14 +57,12 @@ public class Interactable : MonoBehaviour
 	{
 		collisionChecker.onCollidingEnter.AddListener(OnCollidingEnter);
 		collisionChecker.onCollidingExit.AddListener(OnCollidingExit);
-		pickupIndicator?.enableIndicator();
 	}
 
 	private void OnDisable()
 	{
 		collisionChecker.onCollidingEnter.RemoveListener(OnCollidingEnter);
 		collisionChecker.onCollidingExit.RemoveListener(OnCollidingExit);
-		pickupIndicator?.disableIndicator();
 	}
 
 	public void ChangeState(State newState)
