@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6598415534479099427}
   - component: {fileID: 2794836825209109525}
   - component: {fileID: 8499919927183868140}
+  - component: {fileID: -9096900437567789581}
   m_Layer: 0
   m_Name: pine
   m_TagString: Untagged
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &-9096900437567789581
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7910887407977575472}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3581466079261191796, guid: 1d9291c7c58377242a1d5bfad86f1732, type: 3}
