@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance = null;
 	private const string CurrentLevelKey = "CurrentLevel";
+	private const string LevelDoneKey = "LevelDone";
 
 	[Header("Settings")]
 	[SerializeField]
@@ -53,7 +54,11 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	protected GameObject levelButtonPrefab;
 	[SerializeField]
+	protected GameObject levelButtonSuccessPrefab;
+	[SerializeField]
 	protected Transform levelButtonParent;
+	[SerializeField]
+	protected GameObject skipButton;
 
 	private float originalFixedDelta;
 	private Baby baby;
@@ -99,14 +104,22 @@ public class GameManager : MonoBehaviour
 
 		int currentLevel = Mathf.Max(SceneManager.GetActiveScene().buildIndex, PlayerPrefs.GetInt(CurrentLevelKey));
 		PlayerPrefs.SetInt(CurrentLevelKey, currentLevel);
+		if (currentLevel > SceneManager.GetActiveScene().buildIndex)
+			skipButton.SetActive(false);
 
 		// Setup the Buttons
 		var levelCount = SceneManager.sceneCountInBuildSettings - 1;
 		for (int i = 0; i < levelCount; ++i)
 		{
-			var levelButton = Instantiate(levelButtonPrefab, levelButtonParent);
+			var success = PlayerPrefs.GetInt(LevelDoneKey + i) == 1;
+			GameObject levelButton;
+			if (success)
+				levelButton = Instantiate(levelButtonSuccessPrefab, levelButtonParent);
+			else
+				levelButton = Instantiate(levelButtonPrefab, levelButtonParent);
 			levelButton.GetComponentInChildren<TextMeshProUGUI>().text = (i + 1) + "";
-			levelButton.GetComponent<Button>().interactable = i <= currentLevel;
+			if (!success)
+				levelButton.GetComponent<Button>().interactable = i <= currentLevel;
 			levelButton.GetComponent<Button>().onClick.AddListener(() =>
 			{
 				LoadLevel(levelButton);
@@ -236,8 +249,10 @@ public class GameManager : MonoBehaviour
 	{
 		Debug.Log("You win!");
 		winUI.SetActive(true);
+		int currentBuildIndex = SceneManager.GetSceneAt(0).buildIndex;
+		PlayerPrefs.SetInt(LevelDoneKey + currentBuildIndex, 1);
 		yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-		yield return StartCoroutine(ELoadLevel(SceneManager.GetSceneAt(0).buildIndex + 1));
+		yield return StartCoroutine(ELoadLevel(currentBuildIndex + 1));
 #if UNITY_EDITOR
 		EditorApplication.ExitPlaymode();
 #endif
@@ -275,5 +290,11 @@ public class GameManager : MonoBehaviour
 	private void ResetPlayerPrefs()
 	{
 		PlayerPrefs.DeleteAll();
+	}
+
+	public void SkipLevel()
+	{
+		StopCoroutine(gameFlowCoroutine);
+		StartCoroutine(ELoadLevel(SceneManager.GetSceneAt(0).buildIndex + 1));
 	}
 }
