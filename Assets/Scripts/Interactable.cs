@@ -125,7 +125,7 @@ public class Interactable : MonoBehaviour
 		{
 			validHoloMaterials[i] = validHoloMaterial;
 			invalidHoloMaterials[i] = invalidHoloMaterial;
-			print("materials of: " + name + i + ": " + meshRenderer.materials[i]);
+			// print("materials of: " + name + i + ": " + meshRenderer.materials[i]);
 		}
 
 	}
